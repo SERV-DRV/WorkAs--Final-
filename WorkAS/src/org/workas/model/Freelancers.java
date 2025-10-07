@@ -105,4 +105,9 @@ public class Freelancers {
     public void setFechaRegistro(String fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
+    
+    @Override
+    public String toString() {
+        return nombre + " " + apellido + " (ID: " + idFreelancer + ")";
+    }
 }

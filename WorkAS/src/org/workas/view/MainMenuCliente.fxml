@@ -28,7 +28,7 @@
                 <Separator />
                 <Button styleClass="btn-rojo" text="Inicio" />
                 <Button fx:id="btnMisProyectos" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Mis Proyectos" />
-                <Button styleClass="btn-rojo" text="Postulaciones" />
+                <Button fx:id="btnPostulados" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Postulaciones" />
                 <Button styleClass="btn-rojo" text="Pagos" />
                 <Button styleClass="btn-rojo" text="Facturas" />
                 <Separator />
