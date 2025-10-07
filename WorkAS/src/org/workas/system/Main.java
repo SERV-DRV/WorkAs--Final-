@@ -12,28 +12,41 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.workas.controller.InicioSesionController;
+import org.workas.controller.MainMenuClienteController;
+import org.workas.controller.RegistroClienteController;
 import org.workas.controller.RegistroFreelancersController;
 
-/**
- *
- * @author enriq
- */
 public class Main extends Application {
 
-    private static String URL_VIEW = "/org/workas/view/";
-    private static String URL = "/org/workas/";
+    private static Main instancia;
+    
+    private static final String URL_VIEW = "/org/workas/view/";
+    private static final String URL = "/org/workas/";
+    
     private Stage escenarioPrincipal;
     private Scene escena;
 
     public static void main(String[] args) {
         launch(args);
     }
+    
+    private static int idClienteActual;
 
+    public static void setIdClienteActual(int idCliente) {
+        idClienteActual = idCliente;
+    }
+
+    public static int getIdClienteActual() {
+        return idClienteActual;
+    }
+    
     @Override
     public void start(Stage stage) throws Exception {
+        instancia = this;
         this.escenarioPrincipal = stage;
 
-        inicio();
+        inicio(); 
+
         escenarioPrincipal.setScene(escena);
         escenarioPrincipal.getIcons().add(new Image(URL + "image/LogoPuro.png"));
         escenarioPrincipal.setResizable(false);
@@ -41,9 +54,11 @@ public class Main extends Application {
         escenarioPrincipal.show();
     }
 
-    public Initializable cambiarEscena(String fxml, double ancho, double alto) throws Exception {
-        Initializable interfazCargada = null;
+    public static Main getInstancia() {
+        return instancia;
+    }
 
+    public Initializable cambiarEscena(String fxml, double ancho, double alto) throws Exception {
         FXMLLoader cargadorFXML = new FXMLLoader();
 
         InputStream archivoFXML = Main.class.getResourceAsStream(URL_VIEW + fxml);
@@ -54,10 +69,8 @@ public class Main extends Application {
         escenarioPrincipal.setScene(escena);
         escenarioPrincipal.setResizable(true);
         escenarioPrincipal.sizeToScene();
-        escenarioPrincipal.sizeToScene();
 
-        interfazCargada = cargadorFXML.getController();
-        return interfazCargada;
+        return cargadorFXML.getController();
     }
 
     public void inicio() {
@@ -69,10 +82,28 @@ public class Main extends Application {
         }
     }
 
+    public void registrarCliente() {
+        try {
+            RegistroClienteController rc = (RegistroClienteController) cambiarEscena("RegisterCliente.fxml", 813, 588);
+            rc.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void registerFreelance() {
         try {
             RegistroFreelancersController flc = (RegistroFreelancersController) cambiarEscena("RegisterFreeLance.fxml", 813, 588);
-            flc.setPrincipal(this); // <- clave
+            flc.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void mainMenuCliente() {
+        try{
+            MainMenuClienteController mmc = (MainMenuClienteController) cambiarEscena("MainMenuCliente.fxml", 1000, 650);
+            mmc.setPrincipal(this);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }

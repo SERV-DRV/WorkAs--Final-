@@ -26,7 +26,7 @@
                     <TextField fx:id="txtTelefono" promptText="Teléfono" styleClass="text-field" />
                 </VBox>
                 <Button layoutX="138.0" layoutY="394.0" onAction="#btnRegistrarAction" styleClass="btn-registrar" text="REGISTRAR CLIENTE" />
-                <Button layoutX="153.0" layoutY="443.0" mnemonicParsing="false" onAction="#regresarInicioSesion" styleClass="btn-login" text="Regresar a Iniciar Sesión" />
+                <Button fx:id="btnRegresarAInicio" layoutX="153.0" layoutY="443.0" mnemonicParsing="false" onAction="#clicManejoEvento" styleClass="btn-login" text="Regresar a Iniciar Sesión" />
             <ImageView fitHeight="85.0" fitWidth="154.0" layoutX="-1.0" layoutY="-19.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../image/FondoBlancoFondo.png" />
@@ -41,7 +41,7 @@
                 <VBox alignment="CENTER" layoutX="0.0" layoutY="140.0" prefWidth="300.0" spacing="15">
                     <Label style="-fx-text-fill: #1e1e1e; -fx-font-size: 22px; -fx-font-weight: bold;" text="¡Bienvenido Cliente!" />
                     <Label style="-fx-text-fill: #757575; -fx-font-size: 13px; -fx-padding: 0 20 0 20; -fx-text-alignment: center;" text="Crea tu cuenta y comienza a disfrutar de los servicios de WorkAS" wrapText="true" />
-                    <Button onAction="#PaginaPrincipal" styleClass="btn-rojo" text="INICIAR SESIÓN" />
+                    <Button fx:id="btnInicioSesion" onAction="#clicManejoEvento" styleClass="btn-rojo" text="INICIAR SESIÓN" />
                 </VBox>
             </children>
         </AnchorPane>

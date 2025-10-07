@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Line?>
 
 <AnchorPane maxHeight="588.0" maxWidth="813.0" prefHeight="588.0" prefWidth="813.0" style="-fx-background-color: #1e1e1e;" stylesheets="@../style/register.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.workas.controller.RegistroClienteController">
     <children>
@@ -26,8 +25,13 @@
                     <PasswordField fx:id="txtContraseña" promptText="Contraseña" styleClass="password-field" />
                     <TextField fx:id="txtTelefono" promptText="Teléfono" styleClass="text-field" />
                 </VBox>
-                <Button layoutX="138.0" layoutY="394.0" styleClass="btn-registrar" text="REGISTRAR CLIENTE" onAction="#btnRegistrarAction"/>
-                <Button layoutX="153.0" layoutY="443.0" mnemonicParsing="false" styleClass="btn-login" text="Regresar a Iniciar Sesión" onAction="#regresarInicioSesion"/>
+                <Button layoutX="138.0" layoutY="394.0" onAction="#btnRegistrarAction" styleClass="btn-registrar" text="REGISTRAR CLIENTE" />
+                <Button fx:id="btnRegresarAInicio" layoutX="153.0" layoutY="443.0" mnemonicParsing="false" onAction="#clicManejoEvento" styleClass="btn-login" text="Regresar a Iniciar Sesión" />
+            <ImageView fitHeight="85.0" fitWidth="154.0" layoutX="-1.0" layoutY="-19.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/FondoBlancoFondo.png" />
+               </image>
+            </ImageView>
             </children>
         </AnchorPane>
         
@@ -37,7 +41,7 @@
                 <VBox alignment="CENTER" layoutX="0.0" layoutY="140.0" prefWidth="300.0" spacing="15">
                     <Label style="-fx-text-fill: #1e1e1e; -fx-font-size: 22px; -fx-font-weight: bold;" text="¡Bienvenido Cliente!" />
                     <Label style="-fx-text-fill: #757575; -fx-font-size: 13px; -fx-padding: 0 20 0 20; -fx-text-alignment: center;" text="Crea tu cuenta y comienza a disfrutar de los servicios de WorkAS" wrapText="true" />
-                    <Button styleClass="btn-rojo" text="INICIAR SESIÓN" onAction="#PaginaPrincipal"/>
+                    <Button fx:id="btnInicioSesion" onAction="#clicManejoEvento" styleClass="btn-rojo" text="INICIAR SESIÓN" />
                 </VBox>
             </children>
         </AnchorPane>

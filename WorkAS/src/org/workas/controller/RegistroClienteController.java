@@ -1,46 +1,56 @@
 package org.workas.controller;
 
-/**
- *
- * @author PC
- */
 import java.net.URL;
 import java.sql.CallableStatement;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import org.workas.db.Conexion;
 import org.workas.model.Clientes;
 import org.workas.system.Main;
-import javafx.scene.control.Alert.AlertType;
 
 public class RegistroClienteController implements Initializable {
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-    }
+    @FXML private Button btnRegresarAInicio;
+    @FXML private Button btnInicioSesion;
 
-    private enum acciones { AGREGAR, NINGUNA }
-    acciones tipoAccion = acciones.NINGUNA;
-    
+    private enum Acciones { AGREGAR, NINGUNA }
+    private Acciones tipoAccion = Acciones.NINGUNA;
+
     private Main principal;
     private Clientes modeloCliente;
 
-    @FXML
-    private TextField txtIdCliente, txtNombre, txtApellido, txtEmail, txtTelefono;
-    @FXML
-    private PasswordField txtContraseña;
+    @FXML private TextField txtIdCliente, txtNombre, txtApellido, txtEmail, txtTelefono;
+    @FXML private PasswordField txtContraseña;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        if (principal == null) {
+            principal = Main.getInstancia(); 
+        }
+    }
 
     public void setPrincipal(Main principal) {
         this.principal = principal;
     }
 
+    public Main getPrincipal() {
+        return principal;
+    }
+
     @FXML
     private void PaginaPrincipal() {
-        principal.inicio();
+        if (principal != null) {
+            principal.inicio();
+        } else {
+            System.err.println("Error: principal es null en PaginaPrincipal");
+        }
     }
 
     public Clientes obtenerModeloCliente() {
@@ -91,13 +101,27 @@ public class RegistroClienteController implements Initializable {
             alerta.setContentText("Cliente registrado correctamente.");
             alerta.showAndWait();
 
-            principal.inicio();
+            if (principal != null) {
+                principal.inicio();
+            } else {
+                System.err.println("Error: principal es null al regresar al inicio");
+            }
         }
     }
-    
+
     @FXML
-    private void regresarInicioSesion() {
-        if (principal != null) {
+    public void clicManejoEvento(ActionEvent evento) {
+        if (principal == null) {
+            principal = Main.getInstancia();
+        }
+
+        if (evento.getSource() == btnRegresarAInicio) {
+            try {
+                principal.cambiarEscena("InicioSesion.fxml", 813, 588);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (evento.getSource() == btnInicioSesion) {
             principal.inicio();
         }
     }
