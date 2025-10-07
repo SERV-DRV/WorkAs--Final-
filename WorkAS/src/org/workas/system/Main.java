@@ -11,6 +11,7 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.workas.controller.FacturasClienteController;
 import org.workas.controller.InicioSesionController;
 import org.workas.controller.MainMenuClienteController;
 import org.workas.controller.PagosClientesController;
@@ -134,6 +135,15 @@ public class Main extends Application {
         try{
             PagosClientesController pgcc = (PagosClientesController) cambiarEscena("PagosClientes.fxml", 1000, 650);
             pgcc.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void facturasCliente() {
+        try{
+            FacturasClienteController fcc = (FacturasClienteController) cambiarEscena("FacturasClientes.fxml", 1000, 650);
+            fcc.setPrincipal(this);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
