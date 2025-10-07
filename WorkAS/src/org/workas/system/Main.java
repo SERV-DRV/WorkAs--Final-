@@ -33,7 +33,7 @@ public class Main extends Application {
         
         inicio();
         escenarioPrincipal.setScene(escena);
-        escenarioPrincipal.getIcons().add(new Image(URL + "image/Logo.png"));
+        escenarioPrincipal.getIcons().add(new Image(URL + "image/LogoPuro.png"));
         escenarioPrincipal.setResizable(false);
         escenarioPrincipal.setTitle("WorkAS");
         escenarioPrincipal.show();       

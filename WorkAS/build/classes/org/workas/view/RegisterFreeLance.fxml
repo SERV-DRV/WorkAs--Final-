@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+
+<AnchorPane maxHeight="588.0" maxWidth="813.0" prefHeight="588.0" prefWidth="813.0" style="-fx-background-color: #1e1e1e;" stylesheets="@../style/register.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Circle fill="#c62828" layoutX="14.0" layoutY="57.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+        <AnchorPane layoutX="49.0" layoutY="36.0" prefHeight="500.0" prefWidth="420.0" style="-fx-background-color: #1e1e1e; -fx-background-radius: 15 0 0 15; -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.1), 10, 0, 0, 10);">         
+            <children>
+                <Circle fill="#c62828" layoutX="216.0" layoutY="281.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                <Circle fill="#c62828" layoutX="238.0" layoutY="171.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                <Circle fill="#c62828" layoutX="156.0" layoutY="43.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                <Circle fill="#c62828" layoutX="342.0" layoutY="345.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                <Label layoutX="53.0" layoutY="78.0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Regístrate como FreeLancer" />
+                <Button layoutX="139.0" layoutY="379.0" styleClass="btn-registrar" text="REGISTRAR FREELANCER" />
+                <Line endX="64.88888549804688" layoutX="216.0" layoutY="422.0" startX="-55.99998474121094" />
+                <ImageView fitHeight="136.0" fitWidth="199.0" layoutX="-9.0" layoutY="-31.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../image/FondoBlancoFondo.png" />
+                    </image>
+                </ImageView>
+                <Button layoutX="153.0" layoutY="426.0" mnemonicParsing="false" styleClass="btn-login" text="Regresar a Iniciar Sesión" />
+                <Circle fill="#c62828" layoutX="382.0" layoutY="34.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                <Circle fill="#c62828" layoutX="92.0" layoutY="432.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                <Circle fill="#c62828" layoutX="43.0" layoutY="143.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                <Circle fill="#c62828" layoutX="374.0" layoutY="436.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                <Circle fill="#c62828" layoutX="62.0" layoutY="274.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                <Circle fill="#c62828" layoutX="393.0" layoutY="169.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                <Circle fill="#c62828" layoutX="286.0" layoutY="26.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                <Circle fill="#c62828" layoutX="260.0" layoutY="481.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <HBox layoutX="44.0" layoutY="139.0" prefHeight="228.0" prefWidth="343.0" spacing="10.0">
+               <children>
+                  <VBox prefWidth="243.0" spacing="15">
+                     <children>
+                             <TextField promptText="Nombre" styleClass="text-field" />
+                             <TextField promptText="Apellido" styleClass="text-field" />
+                             <TextField promptText="Correo electrónico" styleClass="text-field" />
+                     </children>
+                  </VBox>
+                      <VBox prefWidth="243.0" spacing="15">
+                          <PasswordField promptText="Contraseña" styleClass="password-field" />
+                          <TextField promptText="Teléfono" styleClass="text-field" />
+                          <TextField promptText="Especialidad" styleClass="text-field" />
+                      </VBox>
+               </children>
+            </HBox>
+                 <TextField layoutX="137.0" layoutY="305.0" promptText="URL de Git (Proyectos)" styleClass="text-field" />
+            <Circle fill="#c62828" layoutX="73.0" layoutY="336.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="469.0" layoutY="36.0" prefHeight="500.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 0 15 15 0; -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.1), 10, 0, 0, 10);">     
+            <children>
+                <VBox alignment="CENTER" layoutX="0.0" layoutY="140.0" prefWidth="300.0" spacing="15">
+                    <Label style="-fx-text-fill: #1e1e1e; -fx-font-size: 22px; -fx-font-weight: bold;" text="¡Únete como FreeLancer!" />
+                    <Label style="-fx-text-fill: #757575; -fx-font-size: 13px; -fx-padding: 0 20 0 20; -fx-text-alignment: center;" text="Crea tu cuenta, muestra tu talento y colabora con clientes a través de WorkAS" wrapText="true" />
+                    <Button styleClass="btn-rojo" text="INICIAR SESIÓN" />
+                </VBox>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
