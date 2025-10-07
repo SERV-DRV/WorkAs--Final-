@@ -60,7 +60,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <TextField fx:id="txtBuscar" promptText="Buscar por ID de proyecto o freelancer..." style="-fx-background-color: gray; -fx-text-fill: white;" HBox.hgrow="ALWAYS" />
+                <TextField fx:id="txtBuscar" promptText="Buscar por..." style="-fx-background-color: gray; -fx-text-fill: white;" HBox.hgrow="ALWAYS" />
             </children>
         </HBox>
 

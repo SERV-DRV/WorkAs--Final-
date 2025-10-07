@@ -22,17 +22,21 @@
 
 <AnchorPane prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #1e1e1e;" stylesheets="@../style/mainmenucliente.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.workas.controller.MainMenuClienteController">
     <children>
-        <Label layoutX="249.0" layoutY="-2.0" prefHeight="67.0" prefWidth="750.0" styleClass="label-main" text="Bienvenido a WorkAS - Panel del Cliente" />
-        <Circle fill="#c62828" layoutX="125.0" layoutY="47.0" radius="39.0" stroke="BLACK" strokeType="INSIDE" />
-        <Label layoutX="-3.0" layoutY="221.0" prefHeight="427.0" prefWidth="256.0" styleClass="label-main" />
-        <VBox alignment="TOP_CENTER" layoutX="-1.0" layoutY="-4.0" prefHeight="652.0" prefWidth="250.0" spacing="30.0">
+        <Circle fill="#c62828" layoutX="134.0" layoutY="56.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
+        <Label layoutX="258.0" layoutY="-2.0" prefHeight="67.0" prefWidth="741.0" styleClass="label-main" text="Bienvenido a WorkAS - Panel del Cliente" />
+        <ImageView fitHeight="114.0" fitWidth="157.0" layoutX="840.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
+            <image><Image url="@../image/FondoBlancoFondo.png" /></image>
+        </ImageView>
+        <Separator layoutX="250.0" layoutY="-4.0" orientation="VERTICAL" prefHeight="660.0" prefWidth="20.0" />
+        
+        <VBox alignment="TOP_CENTER" layoutX="9.0" layoutY="6.0" prefHeight="650.0" prefWidth="250.0" spacing="25.0">
             <children>
                 <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                     <image><Image url="@../image/UserCliente.png" /></image>
                 </ImageView>
                 <Label style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" text="Nombre del Cliente" />
                 <Label style="-fx-text-fill: #cfcfcf; -fx-font-size: 12px;" text="correo@cliente.com" />
-                <Separator />
+                <Separator prefWidth="229.0" />
                 <Button styleClass="btn-rojo" text="Inicio" />
                 <Button styleClass="btn-rojo" text="Mis Proyectos" />
                 <Button styleClass="btn-rojo" text="Pagos" />
@@ -44,11 +48,8 @@
                 <Insets bottom="10.0" top="10.0" />
             </padding>
         </VBox>
-        <Separator layoutX="250.0" layoutY="-4.0" orientation="VERTICAL" prefHeight="652.0" prefWidth="0.0" />
-        <ImageView fitHeight="114.0" fitWidth="157.0" layoutX="840.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
-            <image><Image url="@../image/FondoBlancoFondo.png" /></image>
-        </ImageView>
-        <Text fill="WHITE" layoutX="270.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestión de Detalles de Factura" textAlignment="CENTER" wrappingWidth="715.0">
+        
+        <Text fill="WHITE" layoutX="270.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestión de Facturas" textAlignment="CENTER" wrappingWidth="715.0">
             <font>
                 <Font name="System Bold" size="25.0" />
             </font>
@@ -56,28 +57,28 @@
 
         <HBox alignment="CENTER_LEFT" layoutX="270.0" layoutY="120.0" prefWidth="715.0" spacing="15.0">
             <children>
-                <Button fx:id="btnNuevo" mnemonicParsing="false" style="-fx-background-color: green;" styleClass="btn-crud" text="Nuevo">
+                <Button fx:id="btnNuevo" mnemonicParsing="false" style="-fx-background-color: green; -fx-text-fill: white;" styleClass="btn-crud" text="Nuevo">
                     <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                             <image><Image url="@../image/add.png" /></image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="btnEliminar" mnemonicParsing="false" style="-fx-background-color: red;" styleClass="btn-crud" text="Eliminar">
+                <Button fx:id="btnEliminar" mnemonicParsing="false" style="-fx-background-color: red; -fx-text-fill: white;" styleClass="btn-crud" text="Eliminar">
                     <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                             <image><Image url="@../image/delete.png" /></image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="btnEditar" mnemonicParsing="false" style="-fx-background-color: blue;" styleClass="btn-crud" text="Editar">
+                <Button fx:id="btnEditar" mnemonicParsing="false" style="-fx-background-color: blue; -fx-text-fill: white;" styleClass="btn-crud" text="Editar">
                     <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                             <image><Image url="@../image/edit.png" /></image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <TextField fx:id="txtBuscar" promptText="Buscar por descripción..." style="-fx-background-color: gray;" HBox.hgrow="ALWAYS" />
+                <TextField fx:id="txtBuscar" promptText="Buscar por..." style="-fx-background-color: gray; -fx-text-fill: white;" HBox.hgrow="ALWAYS" />
             </children>
         </HBox>
 
@@ -105,22 +106,21 @@
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <ComboBox fx:id="cmbFactura" prefWidth="Infinity" promptText="ID Factura" style="-fx-background-color: gray; -fx-text-fill: white;" GridPane.columnIndex="1" />
+                <TextField fx:id="txtCantidad1" editable="false" promptText="ID Detalle" style="-fx-background-color: gray; -fx-text-fill: white;" />
+                <ComboBox fx:id="cmbFactura" prefWidth="Infinity" promptText="ID Factura" style="-fx-background-color: gray;" GridPane.columnIndex="1" />
                 <TextField fx:id="txtDescripcion" promptText="Descripción" style="-fx-background-color: gray; -fx-text-fill: white;" GridPane.columnIndex="2" GridPane.columnSpan="2" />
                 <TextField fx:id="txtCantidad" promptText="Cantidad" style="-fx-background-color: gray; -fx-text-fill: white;" GridPane.rowIndex="1" />
                 <TextField fx:id="txtPrecioUnitario" promptText="Precio Unitario" style="-fx-background-color: gray; -fx-text-fill: white;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="txtCantidad1" promptText="Cantidad" style="-fx-background-color: gray; -fx-text-fill: white;" text="ID detalle" />
-            <TextField fx:id="txtCantidad11" promptText="Cantidad" style="-fx-background-color: gray; -fx-text-fill: white;" text="Subtotal" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <TextField fx:id="txtCantidad11" editable="false" promptText="Subtotal" style="-fx-background-color: gray; -fx-text-fill: white;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             </children>
         </GridPane>
 
         <HBox alignment="CENTER_RIGHT" layoutX="270.0" layoutY="590.0" prefWidth="715.0" spacing="20.0">
             <children>
-                <Button fx:id="btnGuardar" mnemonicParsing="false" style="-fx-background-color: orange;" styleClass="btn-crud" text="Guardar " />
-                <Button fx:id="btnCancelar" mnemonicParsing="false" style="-fx-background-color: red;" styleClass="btn-crud" text="Cancelar" />
+                <Button fx:id="btnGuardar" mnemonicParsing="false" style="-fx-background-color: orange; -fx-text-fill: white;" styleClass="btn-crud" text="Guardar" />
+                <Button fx:id="btnCancelar" mnemonicParsing="false" style="-fx-background-color: red; -fx-text-fill: white;" styleClass="btn-crud" text="Cancelar" />
             </children>
         </HBox>
     </children>
