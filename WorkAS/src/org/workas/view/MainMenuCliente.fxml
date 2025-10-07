@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
- 
+
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #1e1e1e;" stylesheets="@../style/mainmenucliente.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.workas.controller.MainMenuClienteController">
     <children>
         <Circle fill="#c62828" layoutX="125.0" layoutY="47.0" radius="39.0" stroke="BLACK" strokeType="INSIDE" />
@@ -27,7 +27,7 @@
                 <Label fx:id="lblCorreoCliente" style="-fx-text-fill: #cfcfcf; -fx-font-size: 12px;" text="correo@cliente.com" />
                 <Separator />
                 <Button styleClass="btn-rojo" text="Inicio" />
-                <Button styleClass="btn-rojo" text="Mis Proyectos" />
+                <Button fx:id="btnMisProyectos" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Mis Proyectos" />
                 <Button styleClass="btn-rojo" text="Postulaciones" />
                 <Button styleClass="btn-rojo" text="Pagos" />
                 <Button styleClass="btn-rojo" text="Facturas" />

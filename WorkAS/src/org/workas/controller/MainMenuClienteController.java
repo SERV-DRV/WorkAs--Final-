@@ -21,6 +21,8 @@ public class MainMenuClienteController implements Initializable {
     private Label lblCorreoCliente;
     @FXML
     private Button btnCerrarSesion;
+    @FXML 
+    private Button btnMisProyectos;
 
     private Main principal;
 
@@ -53,4 +55,14 @@ public class MainMenuClienteController implements Initializable {
             principal.inicio();
         }
     }
+    
+    @FXML
+    public void clicManejoEvento2(ActionEvent evento) {
+        if (principal == null) {
+            principal = Main.getInstancia();
+        }
+        if (evento.getSource() == btnMisProyectos){
+                principal.proyectosCliente();
+            }
+        }
 }

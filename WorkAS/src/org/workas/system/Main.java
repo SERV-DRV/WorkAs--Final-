@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.workas.controller.InicioSesionController;
 import org.workas.controller.MainMenuClienteController;
+import org.workas.controller.ProyectosClienteController;
 import org.workas.controller.RegistroClienteController;
 import org.workas.controller.RegistroFreelancersController;
 
@@ -104,6 +105,15 @@ public class Main extends Application {
         try{
             MainMenuClienteController mmc = (MainMenuClienteController) cambiarEscena("MainMenuCliente.fxml", 1000, 650);
             mmc.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void proyectosCliente() {
+        try{
+            ProyectosClienteController pcc = (ProyectosClienteController) cambiarEscena("ProyectosCliente.fxml", 1000, 650);
+            pcc.setPrincipal(this);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
