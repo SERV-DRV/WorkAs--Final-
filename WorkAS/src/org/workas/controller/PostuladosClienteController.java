@@ -197,11 +197,9 @@ public class PostuladosClienteController implements Initializable {
             ResultSet resultado = enunciado.executeQuery();
 
             while (resultado.next()) {
-                // Conversión CORREGIDA de java.sql.Date a LocalDateTime
                 Date sqlDate = resultado.getDate("fecha_postulacion");
                 LocalDateTime fechaPostulacion = null;
                 if (sqlDate != null) {
-                    // Usamos toLocalDate().atStartOfDay() para evitar UnsupportedOperationException
                     fechaPostulacion = sqlDate.toLocalDate().atStartOfDay(ZoneId.systemDefault()).toLocalDateTime();
                 }
 

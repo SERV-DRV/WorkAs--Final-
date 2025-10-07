@@ -29,7 +29,7 @@
                 <Button styleClass="btn-rojo" text="Inicio" />
                 <Button fx:id="btnMisProyectos" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Mis Proyectos" />
                 <Button fx:id="btnPostulados" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Postulaciones" />
-                <Button styleClass="btn-rojo" text="Pagos" />
+                <Button fx:id="btnPagos" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Pagos" />
                 <Button styleClass="btn-rojo" text="Facturas" />
                 <Separator />
                 <Button fx:id="btnCerrarSesion" onAction="#clicManejoEvento" styleClass="btn-rojo" text="Cerrar Sesión" />

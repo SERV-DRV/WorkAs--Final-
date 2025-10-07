@@ -25,6 +25,8 @@ public class MainMenuClienteController implements Initializable {
     private Button btnMisProyectos;
     @FXML
     private Button btnPostulados;
+    @FXML
+    private Button btnPagos;
 
     private Main principal;
 
@@ -68,6 +70,9 @@ public class MainMenuClienteController implements Initializable {
         }
         if (evento.getSource() == btnPostulados) {
             principal.postuladosCliente();
+        }
+        if (evento.getSource() == btnPagos) {
+            principal.pagosCliente();
         }
     }
 }
