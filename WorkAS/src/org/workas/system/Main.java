@@ -60,7 +60,7 @@ public class Main extends Application {
     
     public void inicio(){
         try{
-            InicioSesionController ic = (InicioSesionController)cambiarEscena("InicioSesion.fxml", 722, 400);        
+            InicioSesionController ic = (InicioSesionController)cambiarEscena("InicioSesion.fxml", 813, 588);        
             ic.setPrincipal(this);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
