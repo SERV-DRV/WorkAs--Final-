@@ -527,3 +527,14 @@ begin
     select * from entregas;
 end //
 delimiter ;
+
+delimiter //
+create procedure sp_verificarEmail(
+    in p_email varchar(100),
+    in p_contraseña varchar(100)
+)
+	begin
+		select * from Clientes 
+		where email = p_email and contraseña = p_contraseña;
+	end//
+delimiter ;

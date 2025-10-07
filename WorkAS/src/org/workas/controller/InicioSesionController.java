@@ -6,25 +6,32 @@ import java.sql.ResultSet;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.workas.db.Conexion;
 import org.workas.system.Main;
 
 public class InicioSesionController implements Initializable {
-    
+
     @FXML private Button btnRegistrarCliente;
     @FXML private Button btnRegistrarFreelancer;
-    
+
     private Main principal;
-    
+
+    @FXML private TextField txtEmail;
+    @FXML private PasswordField txtContraseña;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         if (principal == null) {
-            principal = Main.getInstancia(); 
+            principal = Main.getInstancia();
         }
     }
 
@@ -35,12 +42,6 @@ public class InicioSesionController implements Initializable {
     public Main getPrincipal() {
         return principal;
     }
-    
-
-    @FXML
-    private TextField txtEmail;
-    @FXML
-    private PasswordField txtContraseña;
 
     @FXML
     private void PaginaPrincipal() {
@@ -67,12 +68,24 @@ public class InicioSesionController implements Initializable {
 
             if (resultado.next()) {
                 int idCliente = resultado.getInt("id_cliente");
+                String nombre = resultado.getString("nombre");
+                String correo = resultado.getString("email");
 
                 principal.setIdClienteActual(idCliente);
 
                 mostrarAlerta("Inicio de sesión exitoso", Alert.AlertType.INFORMATION);
 
-                principal.mainMenuCliente();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/workas/view/MainMenuCliente.fxml"));
+                Parent root = loader.load();
+
+                MainMenuClienteController controlador = loader.getController();
+                controlador.setDatosCliente(nombre, correo);
+
+                Stage stage = (Stage) txtEmail.getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+
             } else {
                 mostrarAlerta("Email o contraseña incorrectos", Alert.AlertType.ERROR);
             }
@@ -91,8 +104,6 @@ public class InicioSesionController implements Initializable {
         alerta.showAndWait();
     }
 
-
-    
     @FXML
     public void clicManejoEvento(ActionEvent evento) {
         if (principal == null) {
