@@ -111,392 +111,419 @@ create table entregas (
     foreign key (id_freelancer) references freelancers(id_freelancer)
 );
 
--- ============================================
+-- =============================
 -- PROCEDIMIENTOS ALMACENADOS
--- ============================================
+-- =============================
 
 -- CRUD CLIENTES
-DELIMITER //
-	create procedure sp_AgregarCliente(
-		in p_nombre varchar(100), 
-		in p_correo varchar(100), 
-		in p_telefono varchar(20), 
-		in p_direccion varchar(200))
-		begin
-			insert into Clientes (nombre, correo, telefono, direccion) 
-			values (p_nombre, p_correo, p_telefono, p_direccion);
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_agregarcliente(
+    in p_nombre varchar(100),
+    in p_apellido varchar(100),
+    in p_email varchar(100),
+    in p_contraseña varchar(100),
+    in p_telefono varchar(20)
+)
+begin
+    insert into clientes (nombre, apellido, email, contraseña, telefono)
+    values (p_nombre, p_apellido, p_email, p_contraseña, p_telefono);
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_ActualizarCliente(
-		in p_id int, 
-        in p_nombre varchar(100), 
-        in p_correo varchar(100), 
-        in p_telefono varchar(20), 
-        in p_direccion varchar(200))
-		begin
-			update Clientes 
-			set nombre = p_nombre, correo = p_correo, telefono = p_telefono, direccion = p_direccion 
-			where idCliente = p_id;
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_actualizarcliente(
+    in p_id int,
+    in p_nombre varchar(100),
+    in p_apellido varchar(100),
+    in p_email varchar(100),
+    in p_contraseña varchar(100),
+    in p_telefono varchar(20)
+)
+begin
+    update clientes
+    set nombre = p_nombre,
+        apellido = p_apellido,
+        email = p_email,
+        contraseña = p_contraseña,
+        telefono = p_telefono
+    where id_cliente = p_id;
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_EliminarCliente(in p_id int)
-	begin
-		delete from Clientes 
-        where idCliente = p_id;
-	end //
-DELIMITER //
+delimiter //
+create procedure sp_eliminarcliente(in p_id int)
+begin
+    delete from clientes where id_cliente = p_id;
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_ListarClientes()
-	begin
-		select * from Clientes;
-	end //
-DELIMITER ;
+delimiter //
+create procedure sp_listarclientes()
+begin
+    select * from clientes;
+end //
+delimiter ;
 
 -- CRUD FREELANCERS
-DELIMITER //
-	create procedure sp_AgregarFreelancer(
-		in p_nombre varchar(100), 
-		in p_correo varchar(100), 
-		in p_telefono varchar(20), 
-		in p_especialidad varchar(100), 
-		in p_tarifa decimal(10,2))
-		begin
-			insert into Freelancers (nombre, correo, telefono, especialidad, tarifaHora) 
-			values (p_nombre, p_correo, p_telefono, p_especialidad, p_tarifa);
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_agregarfreelancer(
+    in p_nombre varchar(100),
+    in p_apellido varchar(100),
+    in p_email varchar(100),
+    in p_contraseña varchar(100),
+    in p_telefono varchar(20),
+    in p_especialidad varchar(100),
+    in p_portafolio varchar(255)
+)
+begin
+    insert into freelancers (nombre, apellido, email, contraseña, telefono, especialidad, portafolio_url)
+    values (p_nombre, p_apellido, p_email, p_contraseña, p_telefono, p_especialidad, p_portafolio);
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_ActualizarFreelancer(
-		in p_id int, 
-        in p_nombre varchar(100), 
-        in p_correo varchar(100), 
-        in p_telefono varchar(20), 
-        in p_especialidad varchar(100), 
-        in p_tarifa decimal(10,2))
-		begin
-			update Freelancers 
-            set nombre = p_nombre, correo = p_correo, telefono = p_telefono, especialidad = p_especialidad, tarifaHora = p_tarifa 
-			where idFreelancer = p_id;
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_actualizarfreelancer(
+    in p_id int,
+    in p_nombre varchar(100),
+    in p_apellido varchar(100),
+    in p_email varchar(100),
+    in p_contraseña varchar(100),
+    in p_telefono varchar(20),
+    in p_especialidad varchar(100),
+    in p_portafolio varchar(255)
+)
+begin
+    update freelancers
+    set nombre = p_nombre,
+        apellido = p_apellido,
+        email = p_email,
+        contraseña = p_contraseña,
+        telefono = p_telefono,
+        especialidad = p_especialidad,
+        portafolio_url = p_portafolio
+    where id_freelancer = p_id;
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_EliminarFreelancer(in p_id int)
-	begin
-		delete from Freelancers 
-        where idFreelancer = p_id;
-	end //
-DELIMITER //
+delimiter //
+create procedure sp_eliminarfreelancer(in p_id int)
+begin
+    delete from freelancers where id_freelancer = p_id;
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_ListarFreelancers()
-	begin
-		select * from Freelancers;
-	end //
-DELIMITER ;
+delimiter //
+create procedure sp_listarfreelancers()
+begin
+    select * from freelancers;
+end //
+delimiter ;
 
 -- CRUD CATEGORIAS
-DELIMITER //
-	create procedure sp_AgregarCategoria(
-    in p_nombre varchar(100), 
-    in p_descripcion text)
-	begin
-		insert into Categorias (nombre, descripcion) 
-        values (p_nombre, p_descripcion);
-	end //
-DELIMITER //
+delimiter //
+create procedure sp_agregarcategoria(
+    in p_nombre varchar(100),
+    in p_descripcion text
+)
+begin
+    insert into categorias (nombre, descripcion)
+    values (p_nombre, p_descripcion);
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_ActualizarCategoria(
-		in p_id int, 
-        in p_nombre varchar(100), 
-        in p_descripcion text)
-		begin
-			update Categorias 
-            set nombre = p_nombre, descripcion = p_descripcion 
-            where idCategoria = p_id;
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_actualizarcategoria(
+    in p_id int,
+    in p_nombre varchar(100),
+    in p_descripcion text
+)
+begin
+    update categorias
+    set nombre = p_nombre,
+        descripcion = p_descripcion
+    where id_categoria = p_id;
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_EliminarCategoria(in p_id int)
-		begin
-			delete from Categorias 
-            where idCategoria = p_id;
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_eliminarcategoria(in p_id int)
+begin
+    delete from categorias where id_categoria = p_id;
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_ListarCategorias()
-	begin
-		select * from Categorias;
-	end //
-DELIMITER ;
+delimiter //
+create procedure sp_listarcategorias()
+begin
+    select * from categorias;
+end //
+delimiter ;
 
 -- CRUD PROYECTOS
-DELIMITER //
-	create procedure sp_AgregarProyecto(
-		in p_idCliente int,
-        in p_idCategoria int,
-        in p_titulo varchar(150),
-        in p_descripcion text,
-        in p_presupuesto decimal(10,2),
-        in p_fechainicio date,
-        in p_fechaFin date,
-        in p_estado varchar(50))
-		begin
-			insert into Proyectos (idCliente, idCategoria, titulo, descripcion, presupuesto, fechainicio, fechaFin, estado) 
-            values (p_idCliente, p_idCategoria, p_titulo, p_descripcion, p_presupuesto, p_fechainicio, p_fechaFin, p_estado);
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_agregarproyecto(
+    in p_idcliente int,
+    in p_idcategoria int,
+    in p_titulo varchar(150),
+    in p_descripcion text,
+    in p_presupuesto decimal(10,2),
+    in p_fechaentrega date,
+    in p_estado enum('publicado','en curso','finalizado','cancelado')
+)
+begin
+    insert into proyectos (id_cliente, id_categoria, titulo, descripcion, presupuesto, fecha_entrega, estado)
+    values (p_idcliente, p_idcategoria, p_titulo, p_descripcion, p_presupuesto, p_fechaentrega, p_estado);
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_ActualizarProyecto(
-		in p_id int,
-        in p_titulo varchar(150),
-        in p_descripcion text,
-        in p_presupuesto decimal(10,2),
-        in p_fechainicio date,
-        in p_fechaFin date,
-        in p_estado varchar(50))
-		begin
-			update Proyectos 
-            set titulo = p_titulo, descripcion = p_descripcion, presupuesto = p_presupuesto, fechainicio = p_fechainicio, fechaFin = p_fechaFin, estado = p_estado 
-            where idProyecto = p_id;
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_actualizarproyecto(
+    in p_id int,
+    in p_titulo varchar(150),
+    in p_descripcion text,
+    in p_presupuesto decimal(10,2),
+    in p_fechaentrega date,
+    in p_estado enum('publicado','en curso','finalizado','cancelado')
+)
+begin
+    update proyectos
+    set titulo = p_titulo,
+        descripcion = p_descripcion,
+        presupuesto = p_presupuesto,
+        fecha_entrega = p_fechaentrega,
+        estado = p_estado
+    where id_proyecto = p_id;
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_EliminarProyecto(in p_id int)
-		begin
-			delete from Proyectos 
-            where idProyecto = p_id;
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_eliminarproyecto(in p_id int)
+begin
+    delete from proyectos where id_proyecto = p_id;
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_ListarProyectos()
-	begin
-		select * from Proyectos;
-	end //
-DELIMITER //
-
+delimiter //
+create procedure sp_listarproyectos()
+begin
+    select * from proyectos;
+end //
+delimiter ;
 
 -- CRUD POSTULACIONES
-DELIMITER //
-	create procedure sp_AgregarPostulacion(
-		in p_idProyecto int,
-        in p_idFreelancer int,
-        in p_propuesta decimal(10,2),
-        in p_mensaje text,
-        in p_fecha date,
-        in p_estado varchar(50))
-		begin
-			insert into Postulaciones (idProyecto, idFreelancer, propuesta, mensaje, fechaPostulacion, estado)
-            values (p_idProyecto, p_idFreelancer, p_propuesta, p_mensaje, p_fecha, p_estado);
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_agregarpostulacion(
+    in p_idproyecto int,
+    in p_idfreelancer int,
+    in p_montoofrecido decimal(10,2),
+    in p_mensaje text,
+    in p_estado enum('pendiente','aceptado','rechazado')
+)
+begin
+    insert into postulaciones (id_proyecto, id_freelancer, monto_ofrecido, mensaje, estado)
+    values (p_idproyecto, p_idfreelancer, p_montoofrecido, p_mensaje, p_estado);
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_ActualizarPostulacion(
-		in p_id int,
-        in p_propuesta decimal(10,2),
-        in p_mensaje text,
-        in p_estado varchar(50))
-		begin
-			update Postulaciones 
-            set propuesta = p_propuesta, mensaje = p_mensaje, estado = p_estado 
-            where idPostulacion = p_id;
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_actualizarpostulacion(
+    in p_id int,
+    in p_montoofrecido decimal(10,2),
+    in p_mensaje text,
+    in p_estado enum('pendiente','aceptado','rechazado')
+)
+begin
+    update postulaciones
+    set monto_ofrecido = p_montoofrecido,
+        mensaje = p_mensaje,
+        estado = p_estado
+    where id_postulacion = p_id;
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_EliminarPostulacion(in p_id int)
-		begin
-			delete from Postulaciones 
-            where idPostulacion = p_id;
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_eliminarpostulacion(in p_id int)
+begin
+    delete from postulaciones where id_postulacion = p_id;
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_ListarPostulaciones()
-	begin
-		select * from Postulaciones;
-	end //
-DELIMITER //
-
+delimiter //
+create procedure sp_listarpostulaciones()
+begin
+    select * from postulaciones;
+end //
+delimiter ;
 
 -- CRUD PAGOS
-DELIMITER //
-	create procedure sp_AgregarPago(
-		in p_idProyecto int,
-        in p_monto decimal(10,2),
-        in p_fecha date,
-        in p_metodo varchar(50))
-		begin
-			insert into Pagos (idProyecto, monto, fechaPago, metodoPago) 
-            values (p_idProyecto, p_monto, p_fecha, p_metodo);
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_agregarpago(
+    in p_idproyecto int,
+    in p_idfreelancer int,
+    in p_monto decimal(10,2),
+    in p_metodo_pago varchar(50),
+    in p_estado enum('pendiente','completado','fallido')
+)
+begin
+    insert into pagos (id_proyecto, id_freelancer, monto, metodo_pago, estado)
+    values (p_idproyecto, p_idfreelancer, p_monto, p_metodo_pago, p_estado);
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_ActualizarPago(
-		in p_id int,
-        in p_monto decimal(10,2),
-        in p_fecha date,
-        in p_metodo varchar(50))
-		begin
-			update Pagos 
-            set monto = p_monto, fechaPago = p_fecha, metodoPago = p_metodo 
-            where idPago = p_id;
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_actualizarpago(
+    in p_id int,
+    in p_monto decimal(10,2),
+    in p_metodo_pago varchar(50),
+    in p_estado enum('pendiente','completado','fallido')
+)
+begin
+    update pagos
+    set monto = p_monto,
+        metodo_pago = p_metodo_pago,
+        estado = p_estado
+    where id_pago = p_id;
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_EliminarPago(in p_id int)
-		begin
-			delete from Pagos 
-            where idPago = p_id;
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_eliminarpago(in p_id int)
+begin
+    delete from pagos where id_pago = p_id;
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_ListarPagos()
-	begin
-		select * from Pagos;
-	end //
-DELIMITER //
-
+delimiter //
+create procedure sp_listarpagos()
+begin
+    select * from pagos;
+end //
+delimiter ;
 
 -- CRUD FACTURAS
-DELIMITER //
-	create procedure sp_AgregarFactura(
-		in p_idPago int,
-        in p_numero varchar(50),
-        in p_fecha date,
-        in p_total decimal(10,2))
-		begin
-			insert into Facturas (idPago, numeroFactura, fechaEmision, total) 
-            values (p_idPago, p_numero, p_fecha, p_total);
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_agregarfactura(
+    in p_idcliente int,
+    in p_total decimal(10,2),
+    in p_estado enum('pendiente','pagado','cancelado')
+)
+begin
+    insert into facturas (id_cliente, total, estado)
+    values (p_idcliente, p_total, p_estado);
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_ActualizarFactura(
-		in p_id int,
-        in p_numero varchar(50),
-        in p_fecha date,
-        in p_total decimal(10,2))
-		begin
-			update Facturas 
-            set numeroFactura = p_numero, fechaEmision = p_fecha, total = p_total 
-            where idFactura = p_id;
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_actualizarfactura(
+    in p_id int,
+    in p_total decimal(10,2),
+    in p_estado enum('pendiente','pagado','cancelado')
+)
+begin
+    update facturas
+    set total = p_total,
+        estado = p_estado
+    where id_factura = p_id;
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_EliminarFactura(in p_id int)
-		begin
-			delete from Facturas 
-            where idFactura = p_id;
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_eliminarfactura(in p_id int)
+begin
+    delete from facturas where id_factura = p_id;
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_ListarFacturas()
-	begin
-		select * from Facturas;
-	end //
-DELIMITER //
-
+delimiter //
+create procedure sp_listarfacturas()
+begin
+    select * from facturas;
+end //
+delimiter ;
 
 -- CRUD DETALLE FACTURA
-DELIMITER //
-	create procedure sp_AgregarDetalleFactura(
-		in p_idFactura int,
-        in p_descripcion text,
-        in p_cantidad int,
-        in p_precio decimal(10,2))
-		begin
-			insert into DetalleFactura (idFactura, descripcion, cantidad, precioUnitario, subtotal)
-            values (p_idFactura, p_descripcion, p_cantidad, p_precio, (p_cantidad * p_precio));
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_agregardetallefactura(
+    in p_idfactura int,
+    in p_descripcion varchar(255),
+    in p_cantidad int,
+    in p_precio_unitario decimal(10,2)
+)
+begin
+    insert into detalle_factura (id_factura, descripcion, cantidad, precio_unitario, subtotal)
+    values (p_idfactura, p_descripcion, p_cantidad, p_precio_unitario, p_cantidad * p_precio_unitario);
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_ActualizarDetalleFactura(
-		in p_id int,
-        in p_descripcion text,
-        in p_cantidad int,
-        in p_precio decimal(10,2))
-		begin
-			update DetalleFactura 
-            set descripcion = p_descripcion, cantidad = p_cantidad, precioUnitario = p_precio, subtotal = (p_cantidad * p_precio) 
-            where idDetalle = p_id;
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_actualizardetallefactura(
+    in p_id int,
+    in p_descripcion varchar(255),
+    in p_cantidad int,
+    in p_precio_unitario decimal(10,2)
+)
+begin
+    update detalle_factura
+    set descripcion = p_descripcion,
+        cantidad = p_cantidad,
+        precio_unitario = p_precio_unitario,
+        subtotal = p_cantidad * p_precio_unitario
+    where id_detalle = p_id;
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_EliminarDetalleFactura(in p_id int)
-		begin
-			delete from DetalleFactura 
-            where idDetalle = p_id;
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_eliminardetallefactura(in p_id int)
+begin
+    delete from detalle_factura where id_detalle = p_id;
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_ListarDetalleFactura()
-	begin
-		select * from DetalleFactura;
-	end //
-DELIMITER //
-
+delimiter //
+create procedure sp_listardetallefactura()
+begin
+    select * from detalle_factura;
+end //
+delimiter ;
 
 -- CRUD ENTREGAS
-DELIMITER //
-	create procedure sp_AgregarEntrega(
-		in p_idProyecto int,
-        in p_idFreelancer int,
-        in p_descripcion text,
-        in p_archivo varchar(200),
-        in p_fecha date,
-        in p_estado varchar(50))
-		begin
-			insert into Entregas (idProyecto, idFreelancer, descripcion, archivo, fechaEntrega, estado)
-            values (p_idProyecto, p_idFreelancer, p_descripcion, p_archivo, p_fecha, p_estado);
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_agregarantrega(
+    in p_idproyecto int,
+    in p_idfreelancer int,
+    in p_descripcion text,
+    in p_archivo_url varchar(255)
+)
+begin
+    insert into entregas (id_proyecto, id_freelancer, descripcion, archivo_url)
+    values (p_idproyecto, p_idfreelancer, p_descripcion, p_archivo_url);
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_ActualizarEntrega(
-		in p_id int,
-        in p_descripcion text,
-        in p_archivo varchar(200),
-        in p_estado varchar(50))
-		begin
-			update Entregas 
-            set descripcion = p_descripcion, archivo = p_archivo, estado = p_estado 
-            where idEntrega = p_id;
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_actualizarentrega(
+    in p_id int,
+    in p_descripcion text,
+    in p_archivo_url varchar(255)
+)
+begin
+    update entregas
+    set descripcion = p_descripcion,
+        archivo_url = p_archivo_url
+    where id_entrega = p_id;
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_EliminarEntrega(in p_id int)
-		begin
-			delete from Entregas 
-            where idEntrega = p_id;
-		end //
-DELIMITER //
+delimiter //
+create procedure sp_eliminarentrega(in p_id int)
+begin
+    delete from entregas where id_entrega = p_id;
+end //
+delimiter ;
 
-DELIMITER //
-	create procedure sp_ListarEntregas()
-	begin
-		select * from Entregas;
-	end //
-DELIMITER ;
+delimiter //
+create procedure sp_listarentregas()
+begin
+    select * from entregas;
+end //
+delimiter ;
