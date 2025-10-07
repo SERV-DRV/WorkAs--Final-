@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class Conexion {
     private static Conexion instancia;
     private Connection conexion;
-    private static final String URL = "jdbc:mysql://127.0.0.1:3306/gestorfreelance_db?useSSL=false";
+    private static final String URL = "jdbc:mysql://127.0.0.1:3306/workas_db?useSSL=false";
     private static final String user = "quintom";
     private static final String password = "admin";
     private static final String driver = "com.mysql.jdbc.Driver";

@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.workas.controller.InicioSesionController;
+import org.workas.controller.RegistroFreelancersController;
 
 /**
  *
@@ -58,18 +59,20 @@ public class Main extends Application {
         interfazCargada = cargadorFXML.getController();
         return interfazCargada;
     }
-<<<<<<< HEAD
 
     public void inicio() {
         try {
-            InicioSesionController ic = (InicioSesionController) cambiarEscena("InicioSesion.fxml", 722, 400);
-=======
-    
-    public void inicio(){
-        try{
-            InicioSesionController ic = (InicioSesionController)cambiarEscena("InicioSesion.fxml", 813, 588);        
->>>>>>> dev
+            InicioSesionController ic = (InicioSesionController) cambiarEscena("InicioSesion.fxml", 813, 588);
             ic.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void registerFreelance() {
+        try {
+            RegistroFreelancersController flc = (RegistroFreelancersController) cambiarEscena("RegisterFreeLance.fxml", 813, 588);
+            flc.setPrincipal(this); // <- clave
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
