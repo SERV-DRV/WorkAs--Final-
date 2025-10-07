@@ -34,7 +34,7 @@ public class Main extends Application {
 
         inicio();
         escenarioPrincipal.setScene(escena);
-        escenarioPrincipal.getIcons().add(new Image(URL + "image/Logo.png"));
+        escenarioPrincipal.getIcons().add(new Image(URL + "image/LogoPuro.png"));
         escenarioPrincipal.setResizable(false);
         escenarioPrincipal.setTitle("WorkAS");
         escenarioPrincipal.show();
@@ -58,10 +58,17 @@ public class Main extends Application {
         interfazCargada = cargadorFXML.getController();
         return interfazCargada;
     }
+<<<<<<< HEAD
 
     public void inicio() {
         try {
             InicioSesionController ic = (InicioSesionController) cambiarEscena("InicioSesion.fxml", 722, 400);
+=======
+    
+    public void inicio(){
+        try{
+            InicioSesionController ic = (InicioSesionController)cambiarEscena("InicioSesion.fxml", 813, 588);        
+>>>>>>> dev
             ic.setPrincipal(this);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
