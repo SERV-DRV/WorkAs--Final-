@@ -8,7 +8,6 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -34,12 +33,12 @@
                 <Label style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" text="Nombre del Cliente" />
                 <Label style="-fx-text-fill: #cfcfcf; -fx-font-size: 12px;" text="correo@cliente.com" />
                 <Separator />
-                <Button onAction="#volverAlMenu" styleClass="btn-rojo" text="Inicio" />
+                <Button onAction="#escenaMenuPrincipal" styleClass="btn-rojo" text="Inicio" /> 
                 <Button styleClass="btn-rojo" text="Mis Proyectos" />
                 <Button styleClass="btn-rojo" text="Pagos" />
                 <Button styleClass="btn-rojo" text="Facturas" />
                 <Separator />
-                <Button fx:id="btnCerrarSesion" onAction="#volverAlMenu" styleClass="btn-rojo" text="Cerrar Sesión" />
+                <Button fx:id="btnCerrarSesion" onAction="#escenaMenuPrincipal" styleClass="btn-rojo" text="Cerrar Sesión" />
             </children>
             <padding>
                 <Insets bottom="10.0" top="10.0" />
@@ -62,16 +61,16 @@
                 <TableColumn fx:id="colDescripcion" prefWidth="99.111083984375" text="Descripcion" />
                 <TableColumn fx:id="colCategoria" prefWidth="77.3333740234375" text="Categoria" />
                 <TableColumn prefWidth="59.55560302734375" text="Cliente" />
-                <TableColumn minWidth="0.0" prefWidth="34.888916015625" text="FL" />
+                <TableColumn minWidth="0.0" prefWidth="34.888916015625" text="FL" /> 
                 <TableColumn fx:id="colPresupuesto" prefWidth="91.11114501953125" text="Presupuesto" />
-                <TableColumn prefWidth="92.22210693359375" text="M.Acordado" />
+                <TableColumn fx:id="colMontoAcordado" prefWidth="92.22210693359375" text="M.Acordado" /> 
                 <TableColumn fx:id="colEstado" prefWidth="61.111083984375" text="Estado" />
-                <TableColumn prefWidth="37.111083984375" text="F.I" />
+                <TableColumn fx:id="colFechaCreacion" prefWidth="37.111083984375" text="F.I" />
                 <TableColumn fx:id="colFechaEntrega" prefWidth="69.5555419921875" text="Termino" />
             </columns>
         </TableView>
         
-        <TextField fx:id="txtBuscar" layoutX="283.0" layoutY="183.0" onAction="#buscarProyecto" prefHeight="25.0" prefWidth="675.0" promptText="Buscar" style="-fx-background-color: gray;" />
+        <TextField fx:id="txtBuscar" layoutX="283.0" layoutY="183.0" onAction="#buscarPorTitulo" prefHeight="25.0" prefWidth="675.0" promptText="Buscar" style="-fx-background-color: gray;" />
         
         <Text fill="WHITE" layoutX="504.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mis Proyectos" textAlignment="CENTER" wrappingWidth="192.00000000000006">
             <font>
@@ -112,41 +111,41 @@
             </graphic>
         </Button>
         
-        <HBox layoutX="312.0" layoutY="504.0" prefHeight="30.0" prefWidth="608.0" spacing="25.0">
+        <HBox layoutX="265.0" layoutY="504.0" prefHeight="30.0" prefWidth="705.0" spacing="25.0">
             <children>
-                <TextField fx:id="txtID" editable="false" prefWidth="100.0" promptText="ID" style="-fx-background-color: gray; -fx-text-fill: white;" />
+                <TextField fx:id="txtIDProyecto" editable="false" prefWidth="60.0" promptText="ID" style="-fx-background-color: gray; -fx-text-fill: white;" />
                 <TextField fx:id="txtTitulo" prefWidth="100.0" promptText="TITULO" style="-fx-background-color: gray; -fx-text-fill: white;" />
-                <TextArea fx:id="txtDescripcion" prefHeight="37.0" prefWidth="102.0" promptText="DESCRIPCION" style="-fx-background-color: gray; -fx-text-fill: white;" />
-                <ComboBox fx:id="cmbIdCategoria" prefHeight="25.0" prefWidth="102.0" promptText="CATEGORIA" style="-fx-background-color: gray; -fx-text-fill: white;" />
-                <TextField fx:id="txtIdCliente" editable="false" layoutX="385.0" layoutY="10.0" prefHeight="25.0" prefWidth="100.0" promptText="CLIENTE ID" style="-fx-background-color: gray; -fx-text-fill: white;" />
+                <TextField fx:id="txtDescripcion" prefWidth="100.0" promptText="DESCRIPCION" style="-fx-background-color: gray; -fx-text-fill: white;" />
+                <ComboBox fx:id="cmbCategoria" prefHeight="25.0" prefWidth="102.0" promptText="CATEGORIA" style="-fx-background-color: gray; -fx-text-fill: white;" />
+                <ComboBox fx:id="cmbCliente" prefHeight="25.0" prefWidth="102.0" promptText="CLIENTE" style="-fx-background-color: gray; -fx-text-fill: white;" />
             </children>
         </HBox>
-        <HBox layoutX="313.0" layoutY="540.0" prefHeight="30.0" prefWidth="608.0" spacing="25.0">
+        <HBox layoutX="265.0" layoutY="540.0" prefHeight="30.0" prefWidth="705.0" spacing="25.0">
             <children>
-                <ComboBox prefHeight="25.0" prefWidth="100.0" promptText="FREELANCER" style="-fx-background-color: gray; -fx-text-fill: white;" />
+                <ComboBox prefHeight="25.0" prefWidth="100.0" promptText="FREELANCER" style="-fx-background-color: gray; -fx-text-fill: white;" /> 
                 <TextField fx:id="txtPresupuesto" prefWidth="100.0" promptText="PRESUPUESTO" style="-fx-background-color: gray; -fx-text-fill: white;" />
-                <TextField prefWidth="100.0" promptText="M. ACORDADO" style="-fx-background-color: gray; -fx-text-fill: white;" />
+                <TextField fx:id="txtMontoAcordado" prefWidth="100.0" promptText="M. ACORDADO" style="-fx-background-color: gray; -fx-text-fill: white;" />
                 <ComboBox fx:id="cmbEstado" prefHeight="25.0" prefWidth="100.0" promptText="ESTADO" style="-fx-background-color: gray; -fx-text-fill: white;" />
-                <TextField prefWidth="100.0" promptText="F.I" style="-fx-background-color: gray; -fx-text-fill: white;" />
+                <TextField editable="false" prefWidth="100.0" promptText="F.I" style="-fx-background-color: gray; -fx-text-fill: white;" />
             </children>
         </HBox>
         
-        <DatePicker fx:id="dpFechaEntrega" layoutX="565.0" layoutY="575.0" prefWidth="100.0" promptText="TERMINA" style="-fx-background-color: gray; -fx-text-fill: white;" />
+        <DatePicker fx:id="dpFechaEntrega" layoutX="265.0" layoutY="575.0" prefWidth="100.0" promptText="TERMINA" style="-fx-background-color: gray; -fx-text-fill: white;" />
         
-        <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutX="359.0" layoutY="579.0" mnemonicParsing="false" onAction="#manejarBotonAgregarGuardar" prefHeight="33.0" prefWidth="130.0" styleClass="btn-verde" text="Guardar">
+        <Button fx:id="btnGuardar" alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutX="403.0" layoutY="579.0" mnemonicParsing="false" onAction="#manejarBotonAgregarGuardar" prefHeight="33.0" prefWidth="130.0" styleClass="btn-verde" text="Guardar">
             <graphic>
                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../image/edit.png" />
+                        <Image url="@../image/save.png" />
                     </image>
                 </ImageView>
             </graphic>
         </Button>
-        <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutX="735.0" layoutY="578.0" mnemonicParsing="false" onAction="#manejarBotonEliminarCancelar" prefHeight="33.0" prefWidth="130.0" styleClass="btn-rojoc" text="Cancelar">
+        <Button fx:id="btnCancelar" alignment="BASELINE_LEFT" graphicTextGap="15.0" layoutX="546.0" layoutY="579.0" mnemonicParsing="false" onAction="#manejarBotonEliminarCancelar" prefHeight="33.0" prefWidth="130.0" styleClass="btn-rojoc" text="Cancelar">
             <graphic>
                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../image/edit.png" />
+                        <Image url="@../image/cancel.png" />
                     </image>
                 </ImageView>
             </graphic>

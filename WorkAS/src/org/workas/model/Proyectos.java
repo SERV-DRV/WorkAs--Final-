@@ -3,57 +3,20 @@ package org.workas.model;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+// Suponiendo que ya tienes las clases Cliente y Categoria
 public class Proyectos {
 
     private int idProyecto;
     private String titulo;
     private String descripcion;
-    private int idCategoria;
-    private int idCliente;
-    private Integer idFreelancer;
+
+    private Categoria categoria; 
+    private Clientes cliente;   
+
+    private Integer idFreelancer; 
     private BigDecimal presupuesto;
     private BigDecimal montoAcordado;
     private String estado;
-    private Date fechaCreacion;
-    private Date fechaEntrega;
-
-    public Proyectos(int idProyecto, String titulo, String descripcion, int idCategoria, int idCliente, Integer idFreelancer, BigDecimal presupuesto, BigDecimal montoAcordado, String estado, Date fechaCreacion, Date fechaEntrega) {
-        this.idProyecto = idProyecto;
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.idCategoria = idCategoria;
-        this.idCliente = idCliente;
-        this.idFreelancer = idFreelancer;
-        this.presupuesto = presupuesto;
-        this.montoAcordado = montoAcordado;
-        this.estado = estado;
-        this.fechaCreacion = fechaCreacion;
-        this.fechaEntrega = fechaEntrega;
-    }
-
-    public Proyectos(int idCliente, int idCategoria, String titulo, String descripcion, BigDecimal presupuesto, Date fechaEntrega) {
-        this.idCliente = idCliente;
-        this.idCategoria = idCategoria;
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.presupuesto = presupuesto;
-        this.fechaEntrega = fechaEntrega;
-        // Campos que se inician por la BD o son nulos al crear:
-        this.idProyecto = 0;
-        this.idFreelancer = null;
-        this.montoAcordado = null;
-        this.estado = "publicado";
-        this.fechaCreacion = null;
-    }
-
-    public Proyectos(int idProyecto, String titulo, String descripcion, BigDecimal presupuesto, Date fechaEntrega, String estado) {
-        this.idProyecto = idProyecto;
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.presupuesto = presupuesto;
-        this.fechaEntrega = fechaEntrega;
-        this.estado = estado;
-    }
 
     public int getIdProyecto() {
         return idProyecto;
@@ -77,22 +40,6 @@ public class Proyectos {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public int getIdCategoria() {
-        return idCategoria;
-    }
-
-    public void setIdCategoria(int idCategoria) {
-        this.idCategoria = idCategoria;
-    }
-
-    public int getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
     }
 
     public Integer getIdFreelancer() {
@@ -141,5 +88,62 @@ public class Proyectos {
 
     public void setFechaEntrega(Date fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
+    }
+    private Date fechaCreacion;
+    private Date fechaEntrega;
+
+    public Proyectos(int idProyecto, String titulo, String descripcion, Categoria categoria, Clientes cliente, Integer idFreelancer, BigDecimal presupuesto, BigDecimal montoAcordado, String estado, Date fechaCreacion, Date fechaEntrega) {
+        this.idProyecto = idProyecto;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.categoria = categoria; // Asignamos el objeto
+        this.cliente = cliente;     // Asignamos el objeto
+        this.idFreelancer = idFreelancer;
+        this.presupuesto = presupuesto;
+        this.montoAcordado = montoAcordado;
+        this.estado = estado;
+        this.fechaCreacion = fechaCreacion;
+        this.fechaEntrega = fechaEntrega;
+    }
+
+    public Proyectos(Clientes cliente, Categoria categoria, String titulo, String descripcion, BigDecimal presupuesto, Date fechaEntrega) {
+        this.cliente = cliente;
+        this.categoria = categoria;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.presupuesto = presupuesto;
+        this.fechaEntrega = fechaEntrega;
+
+        // Valores por defecto/nulos para la inserción
+        this.idProyecto = 0;
+        this.idFreelancer = null;
+        this.montoAcordado = null;
+        this.estado = "publicado";
+        this.fechaCreacion = null;
+    }
+
+    public int getIdCategoria() {
+        return (categoria != null) ? categoria.getIdCategoria() : 0;
+    }
+
+    public int getIdCliente() {
+        return (cliente != null) ? cliente.getIdCliente() : 0;
+    }
+
+    // Métodos para acceder a los objetos (para JavaFX UI)
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public Clientes getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Clientes cliente) {
+        this.cliente = cliente;
     }
 }
