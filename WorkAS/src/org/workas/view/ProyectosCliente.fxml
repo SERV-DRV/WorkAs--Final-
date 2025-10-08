@@ -23,7 +23,7 @@
 
 <AnchorPane prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #1e1e1e;" stylesheets="@../style/mainmenucliente.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.workas.controller.ProyectosClienteController">
    <children>
-      <!-- Marco y Cabecera (Sin Cambios) -->
+      <Circle fill="#c62828" layoutX="134.0" layoutY="56.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
       <Label layoutX="258.0" layoutY="-2.0" prefHeight="67.0" prefWidth="741.0" styleClass="label-main" text="Bienvenido a WorkAS - Panel del Cliente" />
       <ImageView fitHeight="114.0" fitWidth="157.0" layoutX="840.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -32,19 +32,13 @@
       </ImageView>
       <Separator layoutX="250.0" layoutY="-4.0" orientation="VERTICAL" prefHeight="660.0" prefWidth="20.0" />
 
-      <!-- Menú Lateral del Cliente (Sin Cambios) -->
       <VBox alignment="TOP_CENTER" layoutX="9.0" layoutY="6.0" prefHeight="650.0" prefWidth="250.0" spacing="25.0">
          <children>
-             <AnchorPane prefHeight="80.0" prefWidth="80.0">
-               <children>
-                  <Circle fill="#c62828" layoutX="126.0" layoutY="39.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
-                  <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="86.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../image/UserCliente.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/UserCliente.png" />
+               </image>
+            </ImageView>
             <Label style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" text="Nombre del Cliente" />
             <Label style="-fx-text-fill: #cfcfcf; -fx-font-size: 12px;" text="correo@cliente.com" />
             <Separator prefHeight="0.0" prefWidth="229.0" />
@@ -60,17 +54,17 @@
          </padding>
       </VBox>
 
-      <!-- Contenido Principal -->
-      <VBox layoutX="265.0" layoutY="80.0" prefWidth="715.0" spacing="15.0">
+      <VBox layoutX="270.0" layoutY="80.0" prefWidth="715.0" spacing="15.0">
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Mis Proyectos" textAlignment="CENTER" wrappingWidth="715.0">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
             </Text>
+
             <HBox alignment="CENTER_LEFT" spacing="15.0">
                <children>
-                  <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#manejarBotonAgregarGuardar" style="-fx-background-color: green;" styleClass="btn-crud" text="Nuevo">
+                  <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#manejarBotonAgregarGuardar" style="-fx-background-color: green; -fx-text-fill: white;" styleClass="btn-crud" text="Nuevo">
                      <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -79,7 +73,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#manejarBotonEliminarCancelar" style="-fx-background-color: red;" styleClass="btn-crud" text="Eliminar">
+                  <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#manejarBotonEliminarCancelar" style="-fx-background-color: red; -fx-text-fill: white;" styleClass="btn-crud" text="Eliminar">
                      <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -88,7 +82,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnActualizar" mnemonicParsing="false" onAction="#manejarBotonActualizar" style="-fx-background-color: blue;" styleClass="btn-crud" text="Editar">
+                  <Button fx:id="btnActualizar" mnemonicParsing="false" onAction="#manejarBotonActualizar" style="-fx-background-color: blue; -fx-text-fill: white;" styleClass="btn-crud" text="Editar">
                      <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -97,9 +91,10 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TextField fx:id="txtBuscar" onAction="#buscarPorTitulo" promptText="Buscar por título..." style="-fx-background-color: gray; -fx-text-fill: white;" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="txtBuscar" onAction="#buscarPorTitulo" promptText="Buscar por..." style="-fx-background-color: gray; -fx-text-fill: white;" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
+
             <TableView fx:id="tablaProyectos" prefHeight="200.0" prefWidth="715.0">
                <columns>
                   <TableColumn fx:id="colIDProyecto" prefWidth="40.0" text="ID" />
@@ -117,19 +112,18 @@
                </columnResizePolicy>
             </TableView>
 
-            <!-- GridPane con el nuevo layout de 4 columnas -->
             <GridPane hgap="15.0" vgap="10.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <TextField fx:id="txtIDProyecto" editable="false" promptText="ID" style="-fx-background-color: gray; -fx-text-fill: white;" />
@@ -140,15 +134,15 @@
                   <ComboBox fx:id="cmbEstado" prefWidth="Infinity" promptText="Estado" style="-fx-background-color: gray;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                   <TextField fx:id="txtPresupuesto" promptText="Presupuesto" style="-fx-background-color: gray; -fx-text-fill: white;" GridPane.rowIndex="2" />
                   <TextField fx:id="txtMontoAcordado" promptText="M. Acordado" style="-fx-background-color: gray; -fx-text-fill: white;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <DatePicker fx:id="dpFechaEntrega" prefWidth="Infinity" promptText="F. Entrega" style="-fx-control-inner-background: gray;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <DatePicker fx:id="dpFechaEntrega" prefWidth="Infinity" promptText="F. Entrega" style="-fx-control-inner-background: gray; -fx-text-fill: white;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   <TextField fx:id="txtDescripcion" promptText="Descripción" style="-fx-background-color: gray; -fx-text-fill: white;" GridPane.columnSpan="4" GridPane.rowIndex="3" />
                </children>
             </GridPane>
             
             <HBox alignment="CENTER_RIGHT" spacing="20.0">
                <children>
-                  <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#manejarBotonAgregarGuardar" style="-fx-background-color: orange;" styleClass="btn-crud" text="Guardar" />
-                  <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#manejarBotonEliminarCancelar" style="-fx-background-color: red;" styleClass="btn-crud" text="Cancelar" />
+                  <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#manejarBotonAgregarGuardar" style="-fx-background-color: orange; -fx-text-fill: white;" styleClass="btn-crud" text="Guardar" />
+                  <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#manejarBotonEliminarCancelar" style="-fx-background-color: red; -fx-text-fill: white;" styleClass="btn-crud" text="Cancelar" />
                </children>
             </HBox>
          </children>
