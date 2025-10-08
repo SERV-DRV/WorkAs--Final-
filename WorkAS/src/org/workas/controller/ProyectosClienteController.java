@@ -23,16 +23,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javax.swing.JOptionPane;
 import org.workas.db.Conexion;
-import org.workas.model.Proyectos;
-import org.workas.model.Categoria; 
+import org.workas.model.Categoria;
 import org.workas.model.Clientes;
+import org.workas.model.Proyectos;
 import org.workas.system.Main;
 
 public class ProyectosClienteController implements Initializable {
 
-    private ObservableList<Proyectos> listaProyectos;
-    private ObservableList<Categoria> listaCategorias;
-    private ObservableList<Clientes> listaClientes;
+    private ObservableList<Proyectos> listaProyectos = FXCollections.observableArrayList();
+    private ObservableList<Categoria> listaCategorias = FXCollections.observableArrayList();
+    private ObservableList<Clientes> listaClientes = FXCollections.observableArrayList();
 
     private Main principal;
     private Proyectos modeloProyecto;
@@ -40,167 +40,84 @@ public class ProyectosClienteController implements Initializable {
     private final String[] estadosProyecto = {"publicado", "en curso", "finalizado", "cancelado"};
 
     private enum EstadoFormulario {
-        AGREGAR, ELIMINAR, ACTUALIZAR, NINGUNA
+        AGREGAR, ACTUALIZAR, NINGUNA
     };
-    EstadoFormulario tipoDeAccion = EstadoFormulario.NINGUNA;
-
+    private EstadoFormulario tipoDeAccion = EstadoFormulario.NINGUNA;
 
     @FXML
     private TableView<Proyectos> tablaProyectos;
     @FXML
-    private TableColumn colIDProyecto, colTitulo, colDescripcion, colCategoria, colPresupuesto, colFechaEntrega, colEstado;
+    private TableColumn<Proyectos, ?> colIDProyecto, colTitulo, colDescripcion, colCategoria, colPresupuesto, colFechaEntrega, colEstado;
     @FXML
     private TextField txtIDProyecto, txtBuscar, txtTitulo, txtDescripcion, txtPresupuesto, txtMontoAcordado;
-    
     @FXML
     private ComboBox<Clientes> cmbCliente;
     @FXML
     private ComboBox<Categoria> cmbCategoria; 
-    
     @FXML
     private ComboBox<String> cmbEstado;
     @FXML
     private DatePicker dpFechaEntrega;
-
     @FXML
-    private Button btnAgregar,btnCerrarSesion, btnActualizar, btnEliminar, btnGuardar, btnCancelar,btnPostulados,btnPagos,btnFacturas; 
-
+    private Button btnAgregar, btnActualizar, btnEliminar, btnPostulados, btnPagos, btnFacturas, btnCerrarSesion;
 
     public void setPrincipal(Main principal) {
         this.principal = principal;
     }
 
-    public Main getPrincipal() {
-        return principal;
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarClientes();
-        cargarCategorias();
-        
-        cargarTablaProyectos();
-        
+        tablaProyectos.setItems(listaProyectos);
+        cmbCliente.setItems(listaClientes);
+        cmbCategoria.setItems(listaCategorias);
         cmbEstado.setItems(FXCollections.observableArrayList(estadosProyecto));
         
         configurarColumnas();
-        tablaProyectos.setOnMouseClicked(eventHandler -> cargarProyectosEnComponentes());
-        colIDProyecto.prefWidthProperty().bind(tablaProyectos.widthProperty().multiply(0.05));
-        colTitulo.prefWidthProperty().bind(tablaProyectos.widthProperty().multiply(0.18));
-        colDescripcion.prefWidthProperty().bind(tablaProyectos.widthProperty().multiply(0.25));
-        colCategoria.prefWidthProperty().bind(tablaProyectos.widthProperty().multiply(0.12));
-        colPresupuesto.prefWidthProperty().bind(tablaProyectos.widthProperty().multiply(0.10));
-        colFechaEntrega.prefWidthProperty().bind(tablaProyectos.widthProperty().multiply(0.15));
-        colEstado.prefWidthProperty().bind(tablaProyectos.widthProperty().multiply(0.10));
+        cargarDatosComboBox();
+        cargarTablaProyectos();
         
+        tablaProyectos.setOnMouseClicked(event -> cargarProyectosEnComponentes());
         cambiarEstado(EstadoFormulario.NINGUNA);
     }
 
     public void configurarColumnas() {
-        colIDProyecto.setCellValueFactory(new PropertyValueFactory<Proyectos, Integer>("idProyecto"));
-        colTitulo.setCellValueFactory(new PropertyValueFactory<Proyectos, String>("titulo"));
-        colDescripcion.setCellValueFactory(new PropertyValueFactory<Proyectos, String>("descripcion"));
-        colCategoria.setCellValueFactory(new PropertyValueFactory<Proyectos, Categoria>("categoria")); 
-        colPresupuesto.setCellValueFactory(new PropertyValueFactory<Proyectos, BigDecimal>("presupuesto"));
-        colFechaEntrega.setCellValueFactory(new PropertyValueFactory<Proyectos, Date>("fechaEntrega"));
-        colEstado.setCellValueFactory(new PropertyValueFactory<Proyectos, String>("estado"));
-    }
-    
-    
-    private ArrayList<Clientes> cargarModeloClientes(){
-        ArrayList<Clientes> clientes = new ArrayList<>();
-        try {
-            CallableStatement enunciado = Conexion.getInstancia().getConexion().
-                    prepareCall("call sp_listarclientes();");
-            ResultSet resultado = enunciado.executeQuery();
-            while (resultado.next()) {
-                Clientes c = new Clientes(
-                         resultado.getInt("id_cliente"),
-                         resultado.getString("nombre"),
-                         resultado.getString("apellido"),
-                         resultado.getString("email"),
-                         resultado.getString("contraseña"),
-                         resultado.getString("telefono"),
-                         resultado.getString("fecha_registro")
-                );
-                clientes.add(c);
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al cargar clientes");
-            e.printStackTrace();
-        }
-        return clientes;
-    }
-    
-    private void cargarClientes() {
-        listaClientes = FXCollections.observableArrayList(cargarModeloClientes());
-        cmbCliente.setItems(listaClientes);
-    }
-    
-    private ArrayList<Categoria> cargarModeloCategorias(){
-        ArrayList<Categoria> categorias = new ArrayList<>();
-        try {
-            CallableStatement enunciado = Conexion.getInstancia().getConexion().
-                    prepareCall("call sp_listarcategorias();"); 
-            ResultSet resultado = enunciado.executeQuery();
-            while (resultado.next()) {
-                Categoria cat = new Categoria(
-                         resultado.getInt("id_categoria"),
-                         resultado.getString("nombre"),
-                         resultado.getString("descripcion")
-                );
-                categorias.add(cat);
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al cargar categorías");
-            e.printStackTrace();
-        }
-        return categorias;
-    }
-    
-    private void cargarCategorias() {
-        listaCategorias = FXCollections.observableArrayList(cargarModeloCategorias());
-        cmbCategoria.setItems(listaCategorias);
+        colIDProyecto.setCellValueFactory(new PropertyValueFactory<>("idProyecto"));
+        colTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
+        colDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria")); 
+        colPresupuesto.setCellValueFactory(new PropertyValueFactory<>("presupuesto"));
+        colFechaEntrega.setCellValueFactory(new PropertyValueFactory<>("fechaEntrega"));
+        colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
     }
 
-
+    public void cargarDatosComboBox(){
+        listaClientes.setAll(listarTodosLosClientes());
+        listaCategorias.setAll(listarTodasLasCategorias());
+    }
+    
     public void cargarTablaProyectos() {
-        listaProyectos = FXCollections.observableArrayList(listarProyectos());
-        tablaProyectos.setItems(listaProyectos);
+        listaProyectos.setAll(listarProyectos());
         tablaProyectos.getSelectionModel().selectFirst();
         cargarProyectosEnComponentes();
     }
 
     public void cargarProyectosEnComponentes() {
-        Proyectos proyectoSeleccionado = tablaProyectos.getSelectionModel().getSelectedItem();
-        if (proyectoSeleccionado != null) {
-            txtIDProyecto.setText(String.valueOf(proyectoSeleccionado.getIdProyecto()));
-            txtTitulo.setText(proyectoSeleccionado.getTitulo());
-            txtDescripcion.setText(proyectoSeleccionado.getDescripcion());
-            txtPresupuesto.setText(String.valueOf(proyectoSeleccionado.getPresupuesto()));
-            txtMontoAcordado.setText(proyectoSeleccionado.getMontoAcordado() != null ? String.valueOf(proyectoSeleccionado.getMontoAcordado()) : "");
+        Proyectos proyecto = tablaProyectos.getSelectionModel().getSelectedItem();
+        if (proyecto != null) {
+            txtIDProyecto.setText(String.valueOf(proyecto.getIdProyecto()));
+            txtTitulo.setText(proyecto.getTitulo());
+            txtDescripcion.setText(proyecto.getDescripcion());
+            txtPresupuesto.setText(String.valueOf(proyecto.getPresupuesto()));
+            txtMontoAcordado.setText(proyecto.getMontoAcordado() != null ? String.valueOf(proyecto.getMontoAcordado()) : "");
             
-            if (proyectoSeleccionado.getFechaEntrega() != null) {
-                dpFechaEntrega.setValue(proyectoSeleccionado.getFechaEntrega().toLocalDate());
+            if (proyecto.getFechaEntrega() != null) {
+                dpFechaEntrega.setValue(proyecto.getFechaEntrega().toLocalDate());
             } else {
                  dpFechaEntrega.setValue(null);
             }
-            
-            cmbEstado.setValue(proyectoSeleccionado.getEstado());
-
-            for (Clientes c : cmbCliente.getItems()) {
-                if (c.getIdCliente() == proyectoSeleccionado.getIdCliente()) {
-                    cmbCliente.setValue(c);
-                    break;
-                }
-            }
-            
-            for (Categoria cat : cmbCategoria.getItems()) {
-                if (cat.getIdCategoria() == proyectoSeleccionado.getIdCategoria()) {
-                    cmbCategoria.setValue(cat);
-                    break;
-                }
-            }
+            cmbEstado.setValue(proyecto.getEstado());
+            cmbCliente.setValue(proyecto.getCliente());
+            cmbCategoria.setValue(proyecto.getCategoria());
         }
     }
 
@@ -212,15 +129,31 @@ public class ProyectosClienteController implements Initializable {
             ResultSet resultado = enunciado.executeQuery();
             
             while (resultado.next()) {
-                Clientes cli = new Clientes(resultado.getInt("id_cliente"), null, null, null, null, null, null); 
-                Categoria cat = new Categoria(resultado.getInt("id_categoria"), "", ""); 
+                int idCliente = resultado.getInt("id_cliente");
+                int idCategoria = resultado.getInt("id_categoria");
+
+                Clientes clienteEncontrado = null;
+                for(Clientes c : listaClientes){
+                    if(c.getIdCliente() == idCliente){
+                        clienteEncontrado = c;
+                        break;
+                    }
+                }
+
+                Categoria categoriaEncontrada = null;
+                for(Categoria cat : listaCategorias){
+                    if(cat.getIdCategoria() == idCategoria){
+                        categoriaEncontrada = cat;
+                        break;
+                    }
+                }
                 
                 proyectos.add(new Proyectos(
                          resultado.getInt("id_proyecto"),
                          resultado.getString("titulo"),
                          resultado.getString("descripcion"),
-                         cat, 
-                         cli, 
+                         categoriaEncontrada,
+                         clienteEncontrado,
                          resultado.getObject("id_freelancer") != null ? resultado.getInt("id_freelancer") : null,
                          resultado.getBigDecimal("presupuesto"),
                          resultado.getBigDecimal("monto_acordado"),
@@ -230,25 +163,62 @@ public class ProyectosClienteController implements Initializable {
                 ));
             }
         } catch (SQLException ex) {
-            System.out.println("Error al listar Proyectos: " + ex.getMessage());
             ex.printStackTrace();
         }
         return proyectos;
     }
     
+    public ArrayList<Clientes> listarTodosLosClientes(){
+        ArrayList<Clientes> clientes = new ArrayList<>();
+        try {
+            CallableStatement enunciado = Conexion.getInstancia().getConexion().prepareCall("call sp_listarclientes();");
+            ResultSet resultado = enunciado.executeQuery();
+            while (resultado.next()) {
+                clientes.add(new Clientes(
+                         resultado.getInt("id_cliente"),
+                         resultado.getString("nombre"),
+                         resultado.getString("apellido"),
+                         resultado.getString("email"),
+                         resultado.getString("contraseña"),
+                         resultado.getString("telefono"),
+                         resultado.getString("fecha_registro")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return clientes;
+    }
+    
+    public ArrayList<Categoria> listarTodasLasCategorias(){
+        ArrayList<Categoria> categorias = new ArrayList<>();
+        try {
+            CallableStatement enunciado = Conexion.getInstancia().getConexion().prepareCall("call sp_listarcategorias();"); 
+            ResultSet resultado = enunciado.executeQuery();
+            while (resultado.next()) {
+                categorias.add(new Categoria(
+                         resultado.getInt("id_categoria"),
+                         resultado.getString("nombre"),
+                         resultado.getString("descripcion")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return categorias;
+    }
+    
     private Proyectos cargarModeloProyecto() {
         int idProyecto = txtIDProyecto.getText().isEmpty() ? 0 : Integer.parseInt(txtIDProyecto.getText());
-        
-        Clientes clienteSeleccionado = cmbCliente.getSelectionModel().getSelectedItem();
-        Categoria categoriaSeleccionada = cmbCategoria.getSelectionModel().getSelectedItem();
+        Clientes cliente = cmbCliente.getSelectionModel().getSelectedItem();
+        Categoria categoria = cmbCategoria.getSelectionModel().getSelectedItem();
 
-        if (clienteSeleccionado == null || categoriaSeleccionada == null) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un Cliente y una Categoría.");
+        if (cliente == null || categoria == null) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un Cliente y una Categoría.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
             return null;
         }
-        
         if (txtTitulo.getText().trim().isEmpty() || dpFechaEntrega.getValue() == null) {
-             JOptionPane.showMessageDialog(null, "Título y Fecha de Entrega son obligatorios.");
+             JOptionPane.showMessageDialog(null, "Título y Fecha de Entrega son obligatorios.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
             return null;
         }
         
@@ -256,62 +226,41 @@ public class ProyectosClienteController implements Initializable {
         try {
             presupuesto = new BigDecimal(txtPresupuesto.getText());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Presupuesto debe ser un valor numérico válido.");
+            JOptionPane.showMessageDialog(null, "Presupuesto debe ser un valor numérico válido.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
             return null;
         }
         
-        return new Proyectos(
-            idProyecto, 
-            txtTitulo.getText(), 
-            txtDescripcion.getText(), 
-            categoriaSeleccionada, 
-            clienteSeleccionado,   
-            null,
-            presupuesto,
-            null, 
-            cmbEstado.getValue(), 
-            null, 
-            Date.valueOf(dpFechaEntrega.getValue())
-        );
+        return new Proyectos(idProyecto, txtTitulo.getText(), txtDescripcion.getText(), categoria, cliente, null, presupuesto, null, cmbEstado.getValue(), null, Date.valueOf(dpFechaEntrega.getValue()));
     }
     
     public void agregarProyecto() {
         modeloProyecto = cargarModeloProyecto();
         if (modeloProyecto == null) return;
-        
         try {
-            CallableStatement enunciado = Conexion.getInstancia().getConexion().
-                    prepareCall("call sp_agregarproyecto(?,?,?,?,?,?,?);");
-            
+            CallableStatement enunciado = Conexion.getInstancia().getConexion().prepareCall("call sp_agregarproyecto(?,?,?,?,?,?,?);");
             enunciado.setInt(1, modeloProyecto.getIdCliente()); 
             enunciado.setInt(2, modeloProyecto.getIdCategoria()); 
-            
             enunciado.setString(3, modeloProyecto.getTitulo());
             enunciado.setString(4, modeloProyecto.getDescripcion());
             enunciado.setBigDecimal(5, modeloProyecto.getPresupuesto());
             enunciado.setDate(6, modeloProyecto.getFechaEntrega());
             enunciado.setString(7, "publicado"); 
             
-            int registrosAgregados = enunciado.executeUpdate();
-            if (registrosAgregados > 0) {
-                System.out.println("Proyecto agregado correctamente");
+            if (enunciado.executeUpdate() > 0) {
                 cargarTablaProyectos();
                 cambiarEstado(EstadoFormulario.NINGUNA);
-                JOptionPane.showMessageDialog(null, "Proyecto agregado con éxito.");
+                JOptionPane.showMessageDialog(null, "Proyecto agregado con éxito.", "Operación Exitosa", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al agregar proyecto: " + ex.getMessage());
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al agregar proyecto: " + ex.getMessage(), "Error en Base de Datos", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void actualizarProyecto() {
         modeloProyecto = cargarModeloProyecto();
         if (modeloProyecto == null) return;
-        
         try {
-            CallableStatement enunciado = Conexion.getInstancia().getConexion().
-                    prepareCall("call sp_actualizarproyecto(?,?,?,?,?,?);"); 
+            CallableStatement enunciado = Conexion.getInstancia().getConexion().prepareCall("call sp_actualizarproyecto(?,?,?,?,?,?);"); 
             enunciado.setInt(1, modeloProyecto.getIdProyecto());
             enunciado.setString(2, modeloProyecto.getTitulo());
             enunciado.setString(3, modeloProyecto.getDescripcion());
@@ -322,33 +271,32 @@ public class ProyectosClienteController implements Initializable {
             enunciado.executeUpdate();
             cargarTablaProyectos();
             cambiarEstado(EstadoFormulario.NINGUNA);
-            JOptionPane.showMessageDialog(null, "Proyecto actualizado con éxito.");
+            JOptionPane.showMessageDialog(null, "Proyecto actualizado con éxito.", "Operación Exitosa", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar proyecto: " + e.getMessage());
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al actualizar proyecto: " + e.getMessage(), "Error en Base de Datos", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void eliminarProyecto() {
         Proyectos proyectoSeleccionado = tablaProyectos.getSelectionModel().getSelectedItem();
-        if (proyectoSeleccionado == null) return;
+        if (proyectoSeleccionado == null) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un proyecto para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-        int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el proyecto: " + proyectoSeleccionado.getTitulo() + "?", "Eliminar Proyecto", JOptionPane.YES_NO_OPTION);
+        int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el proyecto: " + proyectoSeleccionado.getTitulo() + "?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
         if (respuesta == JOptionPane.YES_OPTION) {
             try {
-                CallableStatement enunciado = Conexion.getInstancia().getConexion().
-                        prepareCall("{call sp_eliminarproyecto(?)}");
+                CallableStatement enunciado = Conexion.getInstancia().getConexion().prepareCall("{call sp_eliminarproyecto(?)}");
                 enunciado.setInt(1, proyectoSeleccionado.getIdProyecto());
                 enunciado.execute();
                 cargarTablaProyectos();
-                JOptionPane.showMessageDialog(null, "Proyecto eliminado con éxito.");
+                JOptionPane.showMessageDialog(null, "Proyecto eliminado con éxito.", "Operación Exitosa", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error al eliminar proyecto: " + e.getMessage());
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al eliminar proyecto: " + e.getMessage(), "Error en Base de Datos", JOptionPane.ERROR_MESSAGE);
             }
         }
-        cambiarEstado(EstadoFormulario.NINGUNA);
     }
 
     public void limpiarTextField() {
@@ -373,10 +321,8 @@ public class ProyectosClienteController implements Initializable {
         cmbCliente.setDisable(!activo);
         cmbCategoria.setDisable(!activo);
         dpFechaEntrega.setDisable(!activo);
-        
         txtMontoAcordado.setDisable(estado != EstadoFormulario.ACTUALIZAR);
         cmbEstado.setDisable(estado != EstadoFormulario.ACTUALIZAR);
-
         tablaProyectos.setDisable(activo);
         txtBuscar.setDisable(activo);
         
@@ -399,16 +345,13 @@ public class ProyectosClienteController implements Initializable {
     private void manejarBotonAgregarGuardar() {
         switch (tipoDeAccion) {
             case NINGUNA:
-                System.out.println("Voy a crear un registro para Proyecto");
                 limpiarTextField();
                 cambiarEstado(EstadoFormulario.AGREGAR);
                 break;
             case AGREGAR:
-                System.out.println("Voy a guardar los datos ingresados");
                 agregarProyecto();
                 break;
             case ACTUALIZAR:
-                System.out.println("Voy a guardar la edicion indicada");
                 actualizarProyecto();
                 break;
         }
@@ -417,7 +360,7 @@ public class ProyectosClienteController implements Initializable {
     @FXML
     private void manejarBotonActualizar() {
         if (tablaProyectos.getSelectionModel().getSelectedItem() == null) {
-             JOptionPane.showMessageDialog(null, "Debe seleccionar un proyecto para editar.");
+             JOptionPane.showMessageDialog(null, "Debe seleccionar un proyecto para editar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
              return;
         }
         cambiarEstado(EstadoFormulario.ACTUALIZAR);
@@ -426,7 +369,6 @@ public class ProyectosClienteController implements Initializable {
     @FXML
     private void manejarBotonEliminarCancelar() {
         if (tipoDeAccion == EstadoFormulario.NINGUNA) {
-            System.out.println("Voy a eliminar el registro");
             eliminarProyecto();
         } else {
             cambiarEstado(EstadoFormulario.NINGUNA);
@@ -436,23 +378,21 @@ public class ProyectosClienteController implements Initializable {
     @FXML
     private void buscarPorTitulo() {
         String textoBusqueda = txtBuscar.getText().trim().toLowerCase();
-        ArrayList<Proyectos> resultadoBusqueda = new ArrayList<>();
-
         if (textoBusqueda.isEmpty()) {
-            cargarTablaProyectos();
+            tablaProyectos.setItems(listaProyectos);
             return;
         }
         
+        ObservableList<Proyectos> resultadoBusqueda = FXCollections.observableArrayList();
         for (Proyectos p : listaProyectos) {
             if (p.getTitulo().toLowerCase().contains(textoBusqueda)) {
                 resultadoBusqueda.add(p);
             }
         }
 
-        tablaProyectos.setItems(FXCollections.observableArrayList(resultadoBusqueda));
+        tablaProyectos.setItems(resultadoBusqueda);
         if (!resultadoBusqueda.isEmpty()) {
             tablaProyectos.getSelectionModel().selectFirst();
-            cargarProyectosEnComponentes();
         } else {
             limpiarTextField();
         }
@@ -460,7 +400,9 @@ public class ProyectosClienteController implements Initializable {
     
     @FXML
     public void escenaMenuPrincipal() {
-        principal.mainMenuCliente(); 
+        if (principal != null) {
+            principal.mainMenuCliente();
+        }
     }
     
     @FXML
