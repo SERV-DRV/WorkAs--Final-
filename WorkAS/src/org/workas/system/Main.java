@@ -1,0 +1,221 @@
+package org.workas.system;
+
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Application;
+import static javafx.application.Application.launch;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.fxml.JavaFXBuilderFactory;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+import org.workas.controller.CategoriasFreeLanceController;
+import org.workas.controller.ClientesFreeLanceController;
+import org.workas.controller.EntregasFreeLanceController;
+import org.workas.controller.FacturasClienteController;
+import org.workas.controller.InicioSesionController;
+import org.workas.controller.MainMenuClienteController;
+import org.workas.controller.MainMenuFreeLancerController;
+import org.workas.controller.PagosClientesController;
+import org.workas.controller.PostuladosClienteController;
+import org.workas.controller.ProyectosClienteController;
+import org.workas.controller.ProyectosFreeLanceController;
+import org.workas.controller.RegistroClienteController;
+import org.workas.controller.RegistroFreelancersController;
+import org.workas.controller.FreelancersFreeLanceController;
+public class Main extends Application {
+
+    private static Main instancia;
+
+    private static final String URL_VIEW = "/org/workas/view/";
+    private static final String URL = "/org/workas/";
+
+    private Stage escenarioPrincipal;
+    private Scene escena;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    private int idUsuarioActual;
+    private String rolUsuarioActual; 
+
+    public void setIdUsuarioActual(int idUsuarioActual) {
+        this.idUsuarioActual = idUsuarioActual;
+    }
+
+    public int getIdUsuarioActual() {
+        return idUsuarioActual;
+    }
+
+    public void setRolUsuarioActual(String rolUsuarioActual) {
+        this.rolUsuarioActual = rolUsuarioActual;
+    }
+
+    public String getRolUsuarioActual() {
+        return rolUsuarioActual;
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        instancia = this;
+        this.escenarioPrincipal = stage;
+
+        inicio();
+
+        escenarioPrincipal.setScene(escena);
+        escenarioPrincipal.getIcons().add(new Image(URL + "image/LogoPuro.png"));
+        escenarioPrincipal.setResizable(false);
+        escenarioPrincipal.setTitle("WorkAS");
+        escenarioPrincipal.show();
+    }
+
+    public static Main getInstancia() {
+        return instancia;
+    }
+
+    public Initializable cambiarEscena(String fxml, double ancho, double alto) throws Exception {
+        FXMLLoader cargadorFXML = new FXMLLoader();
+
+        InputStream archivoFXML = Main.class.getResourceAsStream(URL_VIEW + fxml);
+        cargadorFXML.setBuilderFactory(new JavaFXBuilderFactory());
+        cargadorFXML.setLocation(Main.class.getResource(URL_VIEW + fxml));
+
+        escena = new Scene(cargadorFXML.load(archivoFXML), ancho, alto);
+        escenarioPrincipal.setScene(escena);
+        escenarioPrincipal.setResizable(true);
+        escenarioPrincipal.sizeToScene();
+
+        return cargadorFXML.getController();
+    }
+
+    public void inicio() {
+        try {
+            InicioSesionController ic = (InicioSesionController) cambiarEscena("InicioSesion.fxml", 813, 588);
+            ic.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void registrarCliente() {
+        try {
+            RegistroClienteController rc = (RegistroClienteController) cambiarEscena("RegisterCliente.fxml", 813, 588);
+            rc.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void registerFreelance() {
+        try {
+            RegistroFreelancersController flc = (RegistroFreelancersController) cambiarEscena("RegisterFreeLance.fxml", 813, 588);
+            flc.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void mainMenuCliente() {
+        try {
+            MainMenuClienteController mmc = (MainMenuClienteController) cambiarEscena("MainMenuCliente.fxml", 1000, 650);
+            mmc.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void mainMenuFreelancer() {
+        try {
+            MainMenuFreeLancerController mmfl = (MainMenuFreeLancerController) cambiarEscena("MainMenuFreeLancer.fxml", 1000, 650);
+            mmfl.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+
+    public void proyectosCliente() {
+        try {
+            ProyectosClienteController pcc = (ProyectosClienteController) cambiarEscena("ProyectosCliente.fxml", 1000, 650);
+            pcc.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void proyectosFreelancer() {
+        try {
+            ProyectosFreeLanceController pflc = (ProyectosFreeLanceController) cambiarEscena("ProyectosFreeLance.fxml", 1000, 650);
+            pflc.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void postuladosCliente() {
+        try {
+            PostuladosClienteController plcc = (PostuladosClienteController) cambiarEscena("PostuladosCliente.fxml", 1000, 650);
+            plcc.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void pagosCliente() {
+        try {
+            PagosClientesController pgcc = (PagosClientesController) cambiarEscena("PagosClientes.fxml", 1000, 650);
+            pgcc.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void facturasCliente() {
+        try {
+            FacturasClienteController fcc = (FacturasClienteController) cambiarEscena("FacturasClientes.fxml", 1000, 650);
+            fcc.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void clientesLancers() {
+        try {
+            ClientesFreeLanceController cfc = (ClientesFreeLanceController) cambiarEscena("ClientesFreeLancer.fxml", 1000, 650);
+            cfc.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void freeLancersLancers() {
+        try {
+            FreelancersFreeLanceController fll = (FreelancersFreeLanceController) cambiarEscena("FreeLancersFreeLancer.fxml", 1000, 650);
+            fll.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void categoriasLancers() {
+        try {
+            CategoriasFreeLanceController cfl = (CategoriasFreeLanceController) cambiarEscena("CategoriaFreeLancer.fxml", 1000, 650);
+            cfl.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void entregasLancers() {
+        try {
+            EntregasFreeLanceController efl = (EntregasFreeLanceController) cambiarEscena("EntregasFreeLance.fxml", 1000, 650);
+            efl.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+}

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #1e1e1e;" stylesheets="@../style/mainmenucliente.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.workas.controller.MainMenuClienteController">
+    <children>
+        <Circle fill="#c62828" layoutX="125.0" layoutY="47.0" radius="39.0" stroke="BLACK" strokeType="INSIDE" />
+        <Label layoutX="-3.0" layoutY="207.0" prefHeight="441.0" prefWidth="256.0" styleClass="label-main" />
+ 
+        <VBox alignment="TOP_CENTER" layoutX="-1.0" layoutY="-4.0" prefHeight="652.0" prefWidth="250.0" spacing="25.0">
+            <children>
+                <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../image/UserCliente.png" />
+                    </image>
+                </ImageView>
+                <Label fx:id="lblNombreCliente" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" text="Nombre del Cliente" />
+                <Label fx:id="lblCorreoCliente" style="-fx-text-fill: #cfcfcf; -fx-font-size: 12px;" text="correo@cliente.com" />
+                <Separator />
+                <Button styleClass="btn-rojo" text="Inicio" />
+                <Button fx:id="btnMisProyectos" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Mis Proyectos" />
+                <Button fx:id="btnPostulados" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Postulaciones" />
+                <Button fx:id="btnPagos" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Pagos" />
+                <Button fx:id="btnFacturas" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Facturas" />
+                <Separator />
+                <Button fx:id="btnCerrarSesion" onAction="#clicManejoEvento" styleClass="btn-rojo" text="Cerrar Sesión" />
+            </children>
+            <padding>
+                <Insets bottom="10.0" top="10.0" />
+            </padding>
+        </VBox>
+ 
+        <VBox alignment="CENTER" layoutX="270.0" layoutY="50.0" spacing="30" />
+        <HBox alignment="CENTER" layoutX="276.0" layoutY="348.0" prefHeight="262.0" prefWidth="703.0" spacing="40">
+            <VBox alignment="CENTER" prefHeight="307.0" prefWidth="352.0" spacing="15" styleClass="panel-box">
+                <Label styleClass="title" text="Misión" />
+                <Label styleClass="content" text="Facilitar la conexión entre talentos independientes y empresas, ofreciendo una plataforma confiable y eficiente que potencie la colaboración, optimice proyectos y genere oportunidades de crecimiento para freelancers y clientes por igual." textAlignment="JUSTIFY" wrapText="true" />
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="307.0" prefWidth="369.0" spacing="15" styleClass="panel-box">
+                <Label styleClass="title" text="Visión" />
+                <Label styleClass="content" text="Ser la plataforma líder en gestión de freelancers a nivel regional, reconocida por transformar la forma en que las empresas acceden al talento y los profesionales independientes desarrollan su carrera, promoviendo un ecosistema de trabajo flexible, transparente y sostenible." wrapText="true" />
+            </VBox>
+        </HBox>
+        <Label layoutX="249.0" layoutY="-2.0" prefHeight="67.0" prefWidth="750.0" styleClass="label-main" text="Bienvenido a WorkAS - Panel del Cliente" />
+        <ImageView fitHeight="114.0" fitWidth="157.0" layoutX="840.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../image/FondoBlancoFondo.png" />
+            </image>
+        </ImageView>
+        <Separator layoutX="250.0" layoutY="-4.0" orientation="VERTICAL" prefHeight="652.0" prefWidth="0.0" />
+        <VBox alignment="CENTER" layoutX="278.0" layoutY="110.0" prefHeight="205.0" prefWidth="702.0" spacing="15" styleClass="panel-box">
+            <children>
+                <Label prefHeight="32.0" prefWidth="314.0" styleClass="title" text="¿QUIENES SOMOS?" />
+                <Label styleClass="content" text="Somos los desarolladores que hicieron capaz el funcionamiento de WorkAs, somos estudiantes y soñadores de la creación de aquello nuevo e innovador que aun no exista actualmente somos estudiantes de Fundación Kinal, actualmente seguimos estudiando y vamos por nuestro segundo año de carrera el cual este proyecto refleja todo aquello que hemos aprendido y esto es el fruto del esfuerzo." textAlignment="JUSTIFY" wrapText="true" />
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
