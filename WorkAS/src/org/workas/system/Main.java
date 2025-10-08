@@ -1,7 +1,6 @@
 package org.workas.system;
 
 import java.io.InputStream;
-import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -12,6 +11,8 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.workas.controller.CategoriasFreeLanceController;
+import org.workas.controller.ClientesFreeLanceController;
 import org.workas.controller.FacturasClienteController;
 import org.workas.controller.InicioSesionController;
 import org.workas.controller.MainMenuClienteController;
@@ -22,7 +23,7 @@ import org.workas.controller.ProyectosClienteController;
 import org.workas.controller.ProyectosFreeLanceController;
 import org.workas.controller.RegistroClienteController;
 import org.workas.controller.RegistroFreelancersController;
-
+import org.workas.controller.FreelancersFreeLanceController;
 public class Main extends Application {
 
     private static Main instancia;
@@ -176,6 +177,33 @@ public class Main extends Application {
         try {
             FacturasClienteController fcc = (FacturasClienteController) cambiarEscena("FacturasClientes.fxml", 1000, 650);
             fcc.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void clientesLancers() {
+        try {
+            ClientesFreeLanceController cfc = (ClientesFreeLanceController) cambiarEscena("ClientesFreeLancer.fxml", 1000, 650);
+            cfc.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void freeLancersLancers() {
+        try {
+            FreelancersFreeLanceController fll = (FreelancersFreeLanceController) cambiarEscena("FreeLancersFreeLancer.fxml", 1000, 650);
+            fll.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void categoriasLancers() {
+        try {
+            CategoriasFreeLanceController cfl = (CategoriasFreeLanceController) cambiarEscena("CategoriaFreeLancer.fxml", 1000, 650);
+            cfl.setPrincipal(this);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.workas.controller;
 
 import java.net.URL;
@@ -12,10 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import org.workas.system.Main;
 
-/**
- *
- * @author PC
- */
 public class MainMenuFreeLancerController implements Initializable {
     
     @FXML
@@ -57,22 +49,20 @@ public class MainMenuFreeLancerController implements Initializable {
         }
     }
 
-    @FXML
+    @FXML private Button btnInicioF, btnCerrarSesionS,btnClientes,btnFreeLancers,btnCategorias,btnEntregas,btnProyectos;
+    @FXML 
     public void clicManejoEvento2(ActionEvent evento) {
         if (principal == null) {
             principal = Main.getInstancia();
         }
-        if (evento.getSource() == btnMisProyectos) {
-            principal.proyectosFreelancer();
+        if (evento.getSource() == btnClientes) {
+            principal.clientesLancers();
         }
-        if (evento.getSource() == btnPostulados) {
-            principal.postuladosCliente();
+        if (evento.getSource() == btnFreeLancers) {
+            principal.freeLancersLancers();
         }
-        if (evento.getSource() == btnPagos) {
-            principal.pagosCliente();
-        }
-        if (evento.getSource() == btnFacturas) {
-            principal.facturasCliente();
+        if (evento.getSource() == btnCategorias) {
+            principal.categoriasLancers();
         }
     }
 } 

@@ -5,7 +5,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime; // Necesario para el modelo Postulacion
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -26,6 +26,7 @@ import org.workas.model.Freelancers;
 import org.workas.system.Main;
 import java.sql.Date;
 import java.time.ZoneId;
+import javafx.event.ActionEvent;
 
 public class PostuladosClienteController implements Initializable {
 
@@ -59,7 +60,7 @@ public class PostuladosClienteController implements Initializable {
     private ComboBox<String> cmbEstado;
 
     @FXML
-    private Button btnAgregar, btnActualizar, btnEliminar, btnGuardar, btnCancelar;
+    private Button btnAgregar,btnCerrarSesion, btnActualizar, btnEliminar, btnGuardar, btnCancelar,btnProyectos,btnPagos,btnFacturas;;
 
     public void setPrincipal(Main principal) {
         this.principal = principal;
@@ -75,7 +76,6 @@ public class PostuladosClienteController implements Initializable {
 
         tablaPostulados.setOnMouseClicked(eventHandler -> cargarPostulacionesEnComponentes());
 
-        // --- Configuración de Columnas (Ajustadas a los nuevos nombres de getters y tipos) ---
         colIDPostulacion.prefWidthProperty().bind(tablaPostulados.widthProperty().multiply(0.05));
         colIDProyecto.prefWidthProperty().bind(tablaPostulados.widthProperty().multiply(0.10));
         colIDFreelancer.prefWidthProperty().bind(tablaPostulados.widthProperty().multiply(0.20));
@@ -88,7 +88,6 @@ public class PostuladosClienteController implements Initializable {
     }
 
     public void configurarColumnas() {
-        // Se usan los nombres de los getters del modelo Postulacion proporcionado
         colIDPostulacion.setCellValueFactory(new PropertyValueFactory<Postulacion, Integer>("idPostulacion"));
         colIDProyecto.setCellValueFactory(new PropertyValueFactory<Postulacion, Integer>("idProyecto")); // Usando el ID
         colIDFreelancer.setCellValueFactory(new PropertyValueFactory<Postulacion, Integer>("idFreelancer")); // Usando el ID
@@ -98,8 +97,6 @@ public class PostuladosClienteController implements Initializable {
         colEstado.setCellValueFactory(new PropertyValueFactory<Postulacion, String>("estado"));
     }
 
-    // --- Lógica de Carga de Datos de ComboBox (Mantenida) ---
-    // NOTA: Se asume que Proyectos y Freelancers tienen un toString() adecuado para el ComboBox.
     private ArrayList<Proyectos> cargarModeloProyectos() {
         ArrayList<Proyectos> proyectos = new ArrayList<>();
         try {
@@ -107,7 +104,6 @@ public class PostuladosClienteController implements Initializable {
                     prepareCall("call sp_listarproyectos();");
             ResultSet resultado = enunciado.executeQuery();
             while (resultado.next()) {
-                // Constructor asumido (id, titulo, ...)
                 Proyectos p = new Proyectos(
                         resultado.getInt("id_proyecto"),
                         resultado.getString("titulo"),
@@ -133,7 +129,6 @@ public class PostuladosClienteController implements Initializable {
                     prepareCall("call sp_listarfreelancers();");
             ResultSet resultado = enunciado.executeQuery();
             while (resultado.next()) {
-                // Constructor del modelo Freelancers: (id, nombre, apellido, email, contrasena, telefono, especialidad, portafolioUrl, fechaRegistro)
                 Freelancers f = new Freelancers(
                         resultado.getInt("id_freelancer"),
                         resultado.getString("nombre"),
@@ -153,7 +148,6 @@ public class PostuladosClienteController implements Initializable {
         cmbFreelancer.setItems(listaFreelancers);
     }
 
-    // --- Lógica de la Tabla y Componentes ---
     public void cargarTablaPostulados() {
         listaPostulaciones = FXCollections.observableArrayList(listarPostulaciones());
         tablaPostulados.setItems(listaPostulaciones);
@@ -166,12 +160,10 @@ public class PostuladosClienteController implements Initializable {
         if (postulacionSeleccionada != null) {
             txtIDPostulacion.setText(String.valueOf(postulacionSeleccionada.getIdPostulacion()));
 
-            // Usando los nuevos campos: mensaje y montoOfrecido
             txtMontoOfrecido.setText(String.valueOf(postulacionSeleccionada.getMontoOfrecido()));
             txtMensaje.setText(postulacionSeleccionada.getMensaje());
             cmbEstado.setValue(postulacionSeleccionada.getEstado());
 
-            // Seleccionar el OBJETO Proyecto en el ComboBox usando el ID
             for (Proyectos p : cmbProyecto.getItems()) {
                 if (p.getIdProyecto() == postulacionSeleccionada.getIdProyecto()) {
                     cmbProyecto.setValue(p);
@@ -179,7 +171,6 @@ public class PostuladosClienteController implements Initializable {
                 }
             }
 
-            // Seleccionar el OBJETO Freelancer en el ComboBox usando el ID
             for (Freelancers f : cmbFreelancer.getItems()) {
                 if (f.getIdFreelancer() == postulacionSeleccionada.getIdFreelancer()) {
                     cmbFreelancer.setValue(f);
@@ -203,7 +194,7 @@ public class PostuladosClienteController implements Initializable {
                     fechaPostulacion = sqlDate.toLocalDate().atStartOfDay(ZoneId.systemDefault()).toLocalDateTime();
                 }
 
-                // Constructor del modelo Postulacion (id, idProyecto, idFreelancer, mensaje, montoOfrecido, estado, fechaPostulacion)
+               
                 postulaciones.add(new Postulacion(
                         resultado.getInt("id_postulacion"),
                         resultado.getInt("id_proyecto"),
@@ -224,7 +215,6 @@ public class PostuladosClienteController implements Initializable {
     private Postulacion cargarModeloPostulacion() {
         int idPostulacion = txtIDPostulacion.getText().isEmpty() ? 0 : Integer.parseInt(txtIDPostulacion.getText());
 
-        // Obtener OBJETOS seleccionados para obtener sus IDs
         Proyectos proyectoSeleccionado = cmbProyecto.getSelectionModel().getSelectedItem();
         Freelancers freelancerSeleccionado = cmbFreelancer.getSelectionModel().getSelectedItem();
 
@@ -246,19 +236,17 @@ public class PostuladosClienteController implements Initializable {
             return null;
         }
 
-        // Constructor del modelo Postulacion (id, idProyecto, idFreelancer, mensaje, montoOfrecido, estado, fechaPostulacion)
         return new Postulacion(
                 idPostulacion,
                 proyectoSeleccionado.getIdProyecto(),
                 freelancerSeleccionado.getIdFreelancer(),
-                txtMensaje.getText(), // Usando Mensaje
-                montoOfrecido, // Usando double
+                txtMensaje.getText(),
+                montoOfrecido, 
                 cmbEstado.getValue(),
-                null // La fecha se maneja en la DB al agregar o se recupera al actualizar
+                null 
         );
     }
 
-    // --- Métodos CRUD ---
     public void agregarPostulacion() {
         modeloPostulacion = cargarModeloPostulacion();
         if (modeloPostulacion == null) {
@@ -266,7 +254,6 @@ public class PostuladosClienteController implements Initializable {
         }
 
         try {
-            // Asumo un SP de agregar postulación que recibe los IDs, mensaje y monto
             CallableStatement enunciado = Conexion.getInstancia().getConexion().
                     prepareCall("call sp_agregarpostulacion(?,?,?,?,?);");
 
@@ -297,12 +284,11 @@ public class PostuladosClienteController implements Initializable {
         }
 
         try {
-            // Asumo un SP de actualizar postulación (solo actualiza mensaje, monto y estado)
             CallableStatement enunciado = Conexion.getInstancia().getConexion().
                     prepareCall("call sp_actualizarpostulacion(?,?,?,?);");
             enunciado.setInt(1, modeloPostulacion.getIdPostulacion());
-            enunciado.setString(2, modeloPostulacion.getMensaje()); // Usando mensaje
-            enunciado.setDouble(3, modeloPostulacion.getMontoOfrecido()); // Usando double
+            enunciado.setString(2, modeloPostulacion.getMensaje());
+            enunciado.setDouble(3, modeloPostulacion.getMontoOfrecido()); 
             enunciado.setString(4, modeloPostulacion.getEstado());
 
             enunciado.executeUpdate();
@@ -348,7 +334,6 @@ public class PostuladosClienteController implements Initializable {
         cmbEstado.getSelectionModel().clearSelection();
     }
 
-    // --- Lógica del Estado y Botones ---
     private void cambiarEstado(EstadoFormulario estado) {
         tipoDeAccion = estado;
         boolean activo = (estado == EstadoFormulario.AGREGAR || estado == EstadoFormulario.ACTUALIZAR);
@@ -444,5 +429,24 @@ public class PostuladosClienteController implements Initializable {
     @FXML
     public void escenaMenuPrincipal() {
         principal.mainMenuCliente();
+    }
+    
+    @FXML
+    public void clicManejoEvento2(ActionEvent evento) {
+        if (principal == null) {
+            principal = Main.getInstancia();
+        }
+        if (evento.getSource() == btnProyectos) {
+            principal.proyectosCliente();
+        }
+        if (evento.getSource() == btnPagos) {
+            principal.pagosCliente();
+        }
+        if (evento.getSource() == btnFacturas) {
+            principal.facturasCliente();
+        }
+        if (evento.getSource() == btnCerrarSesion) {
+            principal.inicio();
+        }
     }
 }

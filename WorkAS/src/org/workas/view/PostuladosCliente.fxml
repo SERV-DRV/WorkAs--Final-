@@ -41,12 +41,13 @@
                 <Label style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" text="Nombre del Cliente" />
                 <Label style="-fx-text-fill: #cfcfcf; -fx-font-size: 12px;" text="correo@cliente.com" />
                 <Separator prefWidth="229.0" />
-                <Button styleClass="btn-rojo" text="Inicio" />
-                <Button styleClass="btn-rojo" text="Mis Proyectos" />
-                <Button styleClass="btn-rojo" text="Pagos" />
-                <Button styleClass="btn-rojo" text="Facturas" />
+                <Button onAction="#escenaMenuPrincipal" styleClass="btn-rojo" text="Inicio" />
+                <Button fx:id="btnProyectos" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Mis Proyectos" />
+            <Button styleClass="btn-rojo" text="Postulaciones" />
+                <Button fx:id="btnPagos" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Pagos" />
+                <Button fx:id="btnFacturas" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Facturas" />
                 <Separator />
-                <Button fx:id="btnCerrarSesion" onAction="#escenaMenuPrincipal" styleClass="btn-rojo" text="Cerrar Sesión" />
+                <Button fx:id="btnCerrarSesion" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Cerrar Sesión" />
             </children>
             <padding>
                 <Insets bottom="10.0" top="10.0" />
@@ -62,33 +63,9 @@
 
         <HBox alignment="CENTER_LEFT" layoutX="270.0" layoutY="120.0" prefWidth="715.0" spacing="15.0">
             <children>
-                <Button fx:id="btnAgregar" onAction="#manejarBotonAgregarGuardar" style="-fx-background-color: green; -fx-text-fill: white;" styleClass="btn-crud" text="Nuevo">
-                    <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../image/add.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button fx:id="btnEliminar" onAction="#manejarBotonEliminarCancelar" style="-fx-background-color: red; -fx-text-fill: white;" styleClass="btn-crud" text="Eliminar">
-                    <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../image/delete.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button fx:id="btnActualizar" onAction="#manejarBotonActualizar" style="-fx-background-color: blue; -fx-text-fill: white;" styleClass="btn-crud" text="Editar">
-                    <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../image/edit.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
+                <Button fx:id="btnAgregar" onAction="#manejarBotonAgregarGuardar" style="-fx-background-color: green; -fx-text-fill: white;" styleClass="btn-crud" text="Nuevo" />
+                <Button fx:id="btnEliminar" onAction="#manejarBotonEliminarCancelar" style="-fx-background-color: red; -fx-text-fill: white;" styleClass="btn-crud" text="Eliminar" />
+                <Button fx:id="btnActualizar" onAction="#manejarBotonActualizar" style="-fx-background-color: blue; -fx-text-fill: white;" styleClass="btn-crud" text="Editar" />
                 <TextField fx:id="txtBuscar" onKeyReleased="#buscarPorMonto" promptText="Buscar por..." style="-fx-background-color: gray; -fx-text-fill: white;" HBox.hgrow="ALWAYS" />
             </children>
         </HBox>
@@ -129,12 +106,5 @@
                 <TextField fx:id="txtMensaje" promptText="Mensaje" style="-fx-background-color: gray; -fx-text-fill: white;" GridPane.columnSpan="3" GridPane.rowIndex="2" />
             </children>
         </GridPane>
-
-        <HBox alignment="CENTER_RIGHT" layoutX="270.0" layoutY="590.0" prefWidth="715.0" spacing="20.0">
-            <children>
-                <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#manejarBotonAgregarGuardar" style="-fx-background-color: orange; -fx-text-fill: white;" styleClass="btn-crud" text="Guardar" />
-                <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#manejarBotonEliminarCancelar" style="-fx-background-color: red; -fx-text-fill: white;" styleClass="btn-crud" text="Cancelar" />
-            </children>
-        </HBox>
     </children>
 </AnchorPane>

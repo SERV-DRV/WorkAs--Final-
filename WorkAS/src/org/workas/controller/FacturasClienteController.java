@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -327,5 +328,25 @@ public class FacturasClienteController implements Initializable {
     @FXML
     public void escenaMenuPrincipal() {
         principal.mainMenuCliente();
+    }
+    
+    @FXML private Button btnProyectos,btnPagos,btnCerrarSesion,btnPostulados;
+    @FXML
+    public void clicManejoEvento2(ActionEvent evento) {
+        if (principal == null) {
+            principal = Main.getInstancia();
+        }
+        if (evento.getSource() == btnProyectos) {
+            principal.proyectosCliente();
+        }
+        if (evento.getSource() == btnPostulados) {
+            principal.postuladosCliente();
+        }
+        if (evento.getSource() == btnPagos) {
+            principal.pagosCliente();
+        }
+        if (evento.getSource() == btnCerrarSesion) {
+            principal.inicio();
+        }
     }
 }

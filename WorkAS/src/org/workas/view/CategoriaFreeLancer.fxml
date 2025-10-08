@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="650.0" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #1e1e1e;" stylesheets="@../style/mainmenucliente.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.workas.controller.MainMenuCategoriasController">
+<AnchorPane maxHeight="650.0" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #1e1e1e;" stylesheets="@../style/mainmenucliente.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.workas.controller.CategoriasFreeLanceController">
     <children>
         <Circle fill="#c62828" layoutX="134.0" layoutY="56.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
 
@@ -38,28 +38,10 @@
 
         <HBox alignment="CENTER_LEFT" layoutX="270.0" layoutY="120.0" prefWidth="715.0" spacing="15.0">
             <children>
-                <Button fx:id="btnNuevo" mnemonicParsing="false" style="-fx-background-color: green; -fx-text-fill: white;" styleClass="btn-crud" text="Nuevo">
-                    <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                            <image><Image url="@../image/add.png" /></image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button fx:id="btnEliminar" mnemonicParsing="false" style="-fx-background-color: red; -fx-text-fill: white;" styleClass="btn-crud" text="Eliminar">
-                    <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                            <image><Image url="@../image/delete.png" /></image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button fx:id="btnEditar" mnemonicParsing="false" style="-fx-background-color: blue; -fx-text-fill: white;" styleClass="btn-crud" text="Editar">
-                    <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                            <image><Image url="@../image/edit.png" /></image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <TextField fx:id="txtBuscar" promptText="Buscar por..." style="-fx-background-color: gray; -fx-text-fill: white;" HBox.hgrow="ALWAYS" />
+                <Button fx:id="btnAgregar" onAction="#manejarBotonAgregarGuardar" mnemonicParsing="false" style="-fx-background-color: green; -fx-text-fill: white;" styleClass="btn-crud" text="➕ Agregar" />
+                <Button fx:id="btnEliminar" onAction="#manejarBotonEliminarCancelar" mnemonicParsing="false" style="-fx-background-color: red; -fx-text-fill: white;" styleClass="btn-crud" text="🗑 Eliminar" />
+                <Button fx:id="btnActualizar" onAction="#manejarBotonActualizar" mnemonicParsing="false" style="-fx-background-color: blue; -fx-text-fill: white;" styleClass="btn-crud" text="✎ Editar" />
+                <TextField fx:id="txtBuscar" onKeyReleased="#buscarCategoria" promptText="Buscar por nombre..." style="-fx-background-color: gray; -fx-text-fill: white;" HBox.hgrow="ALWAYS" />
             </children>
         </HBox>
 
@@ -85,17 +67,11 @@
             </rowConstraints>
             <children>
                 <TextField fx:id="txtIdCategoria" editable="false" promptText="ID Categoría" style="-fx-background-color: gray; -fx-text-fill: white;" />
-                <TextField fx:id="txtNombreCategoria" promptText="Nombre de la Categoría" style="-fx-background-color: gray; -fx-text-fill: white;" GridPane.columnIndex="1" />
-                <TextArea fx:id="txtDescripcionCategoria" prefHeight="200.0" prefWidth="200.0" promptText="Descripción de la categoría..." style="-fx-control-inner-background: gray; -fx-text-fill: white;" wrapText="true" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                <TextField fx:id="txtNombre" promptText="Nombre de la Categoría" style="-fx-background-color: gray; -fx-text-fill: white;" GridPane.columnIndex="1" />
+                <TextArea fx:id="txtDescripcion" prefHeight="200.0" prefWidth="200.0" promptText="Descripción de la categoría..." style="-fx-control-inner-background: gray; -fx-text-fill: white;" wrapText="true" GridPane.columnSpan="2" GridPane.rowIndex="1" />
             </children>
         </GridPane>
-
-        <HBox alignment="CENTER_RIGHT" layoutX="260.0" layoutY="561.0" prefWidth="715.0" spacing="20.0">
-            <children>
-                <Button fx:id="btnGuardar" mnemonicParsing="false" style="-fx-background-color: orange; -fx-text-fill: white;" styleClass="btn-crud" text="Guardar " />
-                <Button fx:id="btnCancelar" mnemonicParsing="false" style="-fx-background-color: red; -fx-text-fill: white;" styleClass="btn-crud" text="Cancelar" />
-            </children>
-        </HBox>
+        
         <VBox alignment="TOP_CENTER" layoutX="9.0" layoutY="6.0" prefHeight="650.0" prefWidth="250.0" spacing="25.0">
             <children>
                 <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
@@ -106,13 +82,13 @@
                 <Label fx:id="lblNombreUsuario" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" text="Nombre del Usuario" />
                 <Label fx:id="lblCorreoUsuario" style="-fx-text-fill: #cfcfcf; -fx-font-size: 12px;" text="correo@usuario.com" />
                 <Separator prefHeight="0.0" prefWidth="229.0" />
-                <Button onAction="#irAClientes" styleClass="btn-rojo" text="Clientes" />
-                <Button onAction="#irAFreelancers" styleClass="btn-rojo" text="FreeLancers" />
+                <Button styleClass="btn-rojo" text="Clientes" />
+                <Button styleClass="btn-rojo" text="FreeLancers" />
                 <Button styleClass="btn-rojo" text="Categorias De Proyectos" />
-                <Button onAction="#irAEntregas" styleClass="btn-rojo" text="Entregas" />
-                <Button onAction="#irAProyectos" styleClass="btn-rojo" text="Proyectos" />
+                <Button styleClass="btn-rojo" text="Entregas" />
+                <Button styleClass="btn-rojo" text="Proyectos" />
                 <Separator />
-                <Button fx:id="btnCerrarSesion1" onAction="#clicManejoEvento" styleClass="btn-rojo" text="Cerrar Sesión" />
+                <Button fx:id="btnCerrarSesion" styleClass="btn-rojo" text="Cerrar Sesión" />
             </children>
             <padding>
                 <Insets bottom="10.0" top="10.0" />
