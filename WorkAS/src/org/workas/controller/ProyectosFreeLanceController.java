@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.workas.controller;
 
 import java.math.BigDecimal;
@@ -31,10 +27,6 @@ import org.workas.model.Clientes;
 import org.workas.model.Proyectos;
 import org.workas.system.Main;
 
-/**
- *
- * @author PC
- */
 public class ProyectosFreeLanceController implements Initializable{
     
     private ObservableList<Proyectos> listaProyectos;
@@ -44,7 +36,6 @@ public class ProyectosFreeLanceController implements Initializable{
     private Main principal;
     private Proyectos modeloProyecto;
     
-    // Estados del proyecto para el ComboBox
     private final String[] estadosProyecto = {"publicado", "en curso", "finalizado", "cancelado"};
 
     private enum EstadoFormulario {
@@ -85,18 +76,14 @@ public class ProyectosFreeLanceController implements Initializable{
         cargarClientes();
         cargarCategorias();
         
-        // Cargar datos de la tabla
         cargarTablaProyectos();
         
-        // Inicializar ComboBox de Estado
         cmbEstado.setItems(FXCollections.observableArrayList(estadosProyecto));
         
         configurarColumnas();
         
-        // Listener de la tabla para cargar datos al hacer clic
         tablaProyectos.setOnMouseClicked(eventHandler -> cargarProyectosEnComponentes());
         
-        // Ajuste de ancho de columnas
         colIDProyecto.prefWidthProperty().bind(tablaProyectos.widthProperty().multiply(0.05));
         colTitulo.prefWidthProperty().bind(tablaProyectos.widthProperty().multiply(0.18));
         colDescripcion.prefWidthProperty().bind(tablaProyectos.widthProperty().multiply(0.25));
@@ -109,18 +96,15 @@ public class ProyectosFreeLanceController implements Initializable{
     }
 
     public void configurarColumnas() {
-        // Usamos el getter del objeto (e.g., getCategoria()) para la tabla
         colIDProyecto.setCellValueFactory(new PropertyValueFactory<Proyectos, Integer>("idProyecto"));
         colTitulo.setCellValueFactory(new PropertyValueFactory<Proyectos, String>("titulo"));
         colDescripcion.setCellValueFactory(new PropertyValueFactory<Proyectos, String>("descripcion"));
-        // El modelo Proyecto debe tener getCategoria() que devuelve el objeto Categoria
         colCategoria.setCellValueFactory(new PropertyValueFactory<Proyectos, Categoria>("categoria")); 
         colPresupuesto.setCellValueFactory(new PropertyValueFactory<Proyectos, BigDecimal>("presupuesto"));
         colFechaEntrega.setCellValueFactory(new PropertyValueFactory<Proyectos, Date>("fechaEntrega"));
         colEstado.setCellValueFactory(new PropertyValueFactory<Proyectos, String>("estado"));
     }
     
-    // --- Lógica de Carga de Datos de ComboBox ---
     
     private ArrayList<Clientes> cargarModeloClientes(){
         ArrayList<Clientes> clientes = new ArrayList<>();
@@ -129,15 +113,14 @@ public class ProyectosFreeLanceController implements Initializable{
                     prepareCall("call sp_listarclientes();");
             ResultSet resultado = enunciado.executeQuery();
             while (resultado.next()) {
-                // ** Lógica Actualizada usando el constructor de 7 parámetros **
                 Clientes c = new Clientes(
                          resultado.getInt("id_cliente"),
                          resultado.getString("nombre"),
                          resultado.getString("apellido"),
                          resultado.getString("email"),
-                         resultado.getString("contraseña"), // Asegúrate que el nombre de la columna sea correcto
+                         resultado.getString("contraseña"),
                          resultado.getString("telefono"),
-                         resultado.getString("fecha_registro") // Asegúrate que el nombre de la columna sea correcto
+                         resultado.getString("fecha_registro")
                 );
                 clientes.add(c);
             }
@@ -179,7 +162,6 @@ public class ProyectosFreeLanceController implements Initializable{
         cmbCategoria.setItems(listaCategorias);
     }
 
-    // --- Lógica de la Tabla y Componentes ---
 
     public void cargarTablaProyectos() {
         listaProyectos = FXCollections.observableArrayList(listarProyectos());
@@ -205,7 +187,6 @@ public class ProyectosFreeLanceController implements Initializable{
             
             cmbEstado.setValue(proyectoSeleccionado.getEstado());
 
-            // Seleccionar el OBJETO Cliente en el ComboBox
             for (Clientes c : cmbCliente.getItems()) {
                 if (c.getIdCliente() == proyectoSeleccionado.getIdCliente()) {
                     cmbCliente.setValue(c);
@@ -213,7 +194,6 @@ public class ProyectosFreeLanceController implements Initializable{
                 }
             }
             
-            // Seleccionar el OBJETO Categoria en el ComboBox
             for (Categoria cat : cmbCategoria.getItems()) {
                 if (cat.getIdCategoria() == proyectoSeleccionado.getIdCategoria()) {
                     cmbCategoria.setValue(cat);
@@ -231,10 +211,6 @@ public class ProyectosFreeLanceController implements Initializable{
             ResultSet resultado = enunciado.executeQuery();
             
             while (resultado.next()) {
-                // Para listar la tabla, solo necesitamos el ID de Cliente y Categoria.
-                // Usamos un constructor simple (solo con ID) para evitar cargar todos los datos de Cliente/Categoria.
-                // ASUMO que tienes un constructor simple de 1 parámetro (ID) en Clientes y Categoria.
-                // Si no lo tienes, debes crearlo o usar un constructor que acepte solo el ID.
                 Clientes cli = new Clientes(resultado.getInt("id_cliente"), null, null, null, null, null, null); 
                 Categoria cat = new Categoria(resultado.getInt("id_categoria"), "", ""); 
                 
@@ -242,8 +218,8 @@ public class ProyectosFreeLanceController implements Initializable{
                          resultado.getInt("id_proyecto"),
                          resultado.getString("titulo"),
                          resultado.getString("descripcion"),
-                         cat, // Objeto Categoria
-                         cli, // Objeto Cliente
+                         cat, 
+                         cli, 
                          resultado.getObject("id_freelancer") != null ? resultado.getInt("id_freelancer") : null,
                          resultado.getBigDecimal("presupuesto"),
                          resultado.getBigDecimal("monto_acordado"),
@@ -262,7 +238,6 @@ public class ProyectosFreeLanceController implements Initializable{
     private Proyectos cargarModeloProyecto() {
         int idProyecto = txtIDProyecto.getText().isEmpty() ? 0 : Integer.parseInt(txtIDProyecto.getText());
         
-        // Obtener OBJETOS seleccionados (CRÍTICO)
         Clientes clienteSeleccionado = cmbCliente.getSelectionModel().getSelectedItem();
         Categoria categoriaSeleccionada = cmbCategoria.getSelectionModel().getSelectedItem();
 
@@ -284,23 +259,21 @@ public class ProyectosFreeLanceController implements Initializable{
             return null;
         }
         
-        // Se usa el constructor de inserción/actualización con los OBJETOS
         return new Proyectos(
             idProyecto, 
             txtTitulo.getText(), 
             txtDescripcion.getText(), 
-            categoriaSeleccionada, // Objeto Categoria
-            clienteSeleccionado,   // Objeto Cliente
-            null, // idFreelancer (null al crear)
+            categoriaSeleccionada, 
+            clienteSeleccionado,  
+            null,
             presupuesto,
-            null, // montoAcordado (null al crear)
+            null, 
             cmbEstado.getValue(), 
-            null, // fechaCreacion
+            null,
             Date.valueOf(dpFechaEntrega.getValue())
         );
     }
     
-    // --- Métodos CRUD ---
 
     public void agregarProyecto() {
         modeloProyecto = cargarModeloProyecto();
@@ -310,16 +283,14 @@ public class ProyectosFreeLanceController implements Initializable{
             CallableStatement enunciado = Conexion.getInstancia().getConexion().
                     prepareCall("call sp_agregarproyecto(?,?,?,?,?,?,?);");
             
-            // 1. Usar el ID del objeto Cliente
             enunciado.setInt(1, modeloProyecto.getIdCliente()); 
-            // 2. Usar el ID del objeto Categoria
             enunciado.setInt(2, modeloProyecto.getIdCategoria()); 
             
             enunciado.setString(3, modeloProyecto.getTitulo());
             enunciado.setString(4, modeloProyecto.getDescripcion());
             enunciado.setBigDecimal(5, modeloProyecto.getPresupuesto());
             enunciado.setDate(6, modeloProyecto.getFechaEntrega());
-            enunciado.setString(7, "publicado"); // Estado inicial al agregar
+            enunciado.setString(7, "publicado"); 
             
             int registrosAgregados = enunciado.executeUpdate();
             if (registrosAgregados > 0) {
@@ -339,8 +310,6 @@ public class ProyectosFreeLanceController implements Initializable{
         if (modeloProyecto == null) return;
         
         try {
-            // Nota: Aquí no se pasa el ID de Cliente/Categoría si el SP no las actualiza.
-            // Si el SP necesita actualizar las FK, debes modificar el SP y la llamada.
             CallableStatement enunciado = Conexion.getInstancia().getConexion().
                     prepareCall("call sp_actualizarproyecto(?,?,?,?,?,?);"); 
             enunciado.setInt(1, modeloProyecto.getIdProyecto());
@@ -394,7 +363,6 @@ public class ProyectosFreeLanceController implements Initializable{
         cmbEstado.getSelectionModel().clearSelection();
     }
     
-    // --- Lógica del Estado y Botones ---
 
     private void cambiarEstado(EstadoFormulario estado) {
         tipoDeAccion = estado;
@@ -407,7 +375,6 @@ public class ProyectosFreeLanceController implements Initializable{
         cmbCategoria.setDisable(!activo);
         dpFechaEntrega.setDisable(!activo);
         
-        // Solo permitir editar el monto acordado y estado si es ACTUALIZAR
         txtMontoAcordado.setDisable(estado != EstadoFormulario.ACTUALIZAR);
         cmbEstado.setDisable(estado != EstadoFormulario.ACTUALIZAR);
 
@@ -494,6 +461,6 @@ public class ProyectosFreeLanceController implements Initializable{
     
     @FXML
     public void escenaMenuPrincipal() {
-        principal.mainMenuCliente(); // Asumo que este es el método para volver
+        principal.mainMenuCliente();
     }
 }

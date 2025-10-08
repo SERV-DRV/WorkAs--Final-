@@ -64,5 +64,11 @@ public class MainMenuFreeLancerController implements Initializable {
         if (evento.getSource() == btnCategorias) {
             principal.categoriasLancers();
         }
+        if (evento.getSource() == btnEntregas) {
+            principal.entregasLancers();
+        }
+        if (evento.getSource() == btnProyectos) {
+            principal.proyectosFreelancer();
+        }
     }
 } 

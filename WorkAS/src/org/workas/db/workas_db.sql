@@ -40,9 +40,9 @@ create table Proyectos (
     descripcion text,
     id_categoria int,
     id_cliente int,
-    id_freelancer int, -- se llena solo cuando se acepta una postulación
-    presupuesto decimal(10,2), -- presupuesto máximo propuesto por el cliente
-    monto_acordado decimal(10,2), -- se llena cuando se acepta una propuesta
+    id_freelancer int,
+    presupuesto decimal(10,2),
+    monto_acordado decimal(10,2),
     estado enum('publicado', 'en curso', 'finalizado', 'cancelado') default 'publicado',
     fecha_creacion datetime default current_timestamp,
     fecha_entrega date,

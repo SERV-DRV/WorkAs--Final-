@@ -1,15 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.workas.model;
 
 import java.time.LocalDateTime;
-
-/**
- *
- * @author PC
- */
 
 public class Factura {
 
@@ -17,7 +8,7 @@ public class Factura {
     private int idCliente;
     private LocalDateTime fecha;
     private double total;
-    private String estado; // 'pendiente', 'pagado', 'cancelado'
+    private String estado; 
 
     public Factura(int idFactura, int idCliente, LocalDateTime fecha, double total, String estado) {
         this.idFactura = idFactura;
@@ -69,4 +60,10 @@ public class Factura {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    @Override
+    public String toString() {
+        return "Factura{" + "idCliente=" + idCliente + ", estado=" + estado + '}';
+    }
+    
 }

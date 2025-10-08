@@ -1,14 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.workas.model;
 
 import java.time.LocalDateTime;
-/**
- *
- * @author PC
- */
+
 public class Pago {
 
     private int idPago;
@@ -17,7 +10,7 @@ public class Pago {
     private double monto;
     private LocalDateTime fechaPago;
     private String metodoPago;
-    private String estado; // 'pendiente', 'completado', 'fallido'
+    private String estado;
 
     public Pago(int idPago, int idProyecto, int idFreelancer, double monto, LocalDateTime fechaPago, String metodoPago, String estado) {
         this.idPago = idPago;
@@ -87,4 +80,11 @@ public class Pago {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    @Override
+    public String toString() {
+        return "Pago{" + "idProyecto=" + idProyecto + ", idFreelancer=" + idFreelancer + ", estado=" + estado + '}';
+    }
+    
+    
 }

@@ -89,11 +89,11 @@ public class PostuladosClienteController implements Initializable {
 
     public void configurarColumnas() {
         colIDPostulacion.setCellValueFactory(new PropertyValueFactory<Postulacion, Integer>("idPostulacion"));
-        colIDProyecto.setCellValueFactory(new PropertyValueFactory<Postulacion, Integer>("idProyecto")); // Usando el ID
-        colIDFreelancer.setCellValueFactory(new PropertyValueFactory<Postulacion, Integer>("idFreelancer")); // Usando el ID
-        colMontoOfrecido.setCellValueFactory(new PropertyValueFactory<Postulacion, Double>("montoOfrecido")); // Usando double
+        colIDProyecto.setCellValueFactory(new PropertyValueFactory<Postulacion, Integer>("idProyecto")); 
+        colIDFreelancer.setCellValueFactory(new PropertyValueFactory<Postulacion, Integer>("idFreelancer")); 
+        colMontoOfrecido.setCellValueFactory(new PropertyValueFactory<Postulacion, Double>("montoOfrecido")); 
         colMensaje.setCellValueFactory(new PropertyValueFactory<Postulacion, String>("mensaje"));
-        colFechaPostulacion.setCellValueFactory(new PropertyValueFactory<Postulacion, LocalDateTime>("fechaPostulacion")); // Usando LocalDateTime
+        colFechaPostulacion.setCellValueFactory(new PropertyValueFactory<Postulacion, LocalDateTime>("fechaPostulacion"));
         colEstado.setCellValueFactory(new PropertyValueFactory<Postulacion, String>("estado"));
     }
 
@@ -260,8 +260,8 @@ public class PostuladosClienteController implements Initializable {
             enunciado.setInt(1, modeloPostulacion.getIdProyecto());
             enunciado.setInt(2, modeloPostulacion.getIdFreelancer());
 
-            enunciado.setString(3, modeloPostulacion.getMensaje()); // Usando mensaje
-            enunciado.setDouble(4, modeloPostulacion.getMontoOfrecido()); // Usando double
+            enunciado.setString(3, modeloPostulacion.getMensaje());
+            enunciado.setDouble(4, modeloPostulacion.getMontoOfrecido()); 
             enunciado.setString(5, "pendiente");
 
             int registrosAgregados = enunciado.executeUpdate();

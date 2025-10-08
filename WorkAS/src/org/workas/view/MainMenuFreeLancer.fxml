@@ -65,8 +65,8 @@
             <Button fx:id="btnClientes" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Clientes" />
                 <Button fx:id="btnFreeLancers" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="FreeLancers" />
                 <Button fx:id="btnCategorias" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Categorias" />
-                <Button fx:id="btnFacturas" styleClass="btn-rojo" text="Entregas" />
-                <Button fx:id="btnMisProyectos" styleClass="btn-rojo" text="Proyectos" />
+                <Button fx:id="btnEntregas" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Entregas" />
+                <Button fx:id="btnProyectos" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Proyectos" />
                 
                 <Separator />
                 

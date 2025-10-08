@@ -9,10 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import org.workas.system.Main;
 
-/**
- *
- * @author informatica
- */
 public class MainMenuClienteController implements Initializable {
 
     @FXML

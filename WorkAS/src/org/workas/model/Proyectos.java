@@ -3,7 +3,6 @@ package org.workas.model;
 import java.math.BigDecimal;
 import java.sql.Date;
 
-// Suponiendo que ya tienes las clases Cliente y Categoria
 public class Proyectos {
 
     private int idProyecto;
@@ -96,8 +95,8 @@ public class Proyectos {
         this.idProyecto = idProyecto;
         this.titulo = titulo;
         this.descripcion = descripcion;
-        this.categoria = categoria; // Asignamos el objeto
-        this.cliente = cliente;     // Asignamos el objeto
+        this.categoria = categoria;
+        this.cliente = cliente;     
         this.idFreelancer = idFreelancer;
         this.presupuesto = presupuesto;
         this.montoAcordado = montoAcordado;
@@ -114,7 +113,6 @@ public class Proyectos {
         this.presupuesto = presupuesto;
         this.fechaEntrega = fechaEntrega;
 
-        // Valores por defecto/nulos para la inserción
         this.idProyecto = 0;
         this.idFreelancer = null;
         this.montoAcordado = null;
@@ -130,7 +128,6 @@ public class Proyectos {
         return (cliente != null) ? cliente.getIdCliente() : 0;
     }
 
-    // Métodos para acceder a los objetos (para JavaFX UI)
     public Categoria getCategoria() {
         return categoria;
     }
@@ -146,4 +143,11 @@ public class Proyectos {
     public void setCliente(Clientes cliente) {
         this.cliente = cliente;
     }
+
+    @Override
+    public String toString() {
+        return "Proyectos{" + "titulo=" + titulo + ", descripcion=" + descripcion + ", idFreelancer=" + idFreelancer + '}';
+    }
+    
+    
 }

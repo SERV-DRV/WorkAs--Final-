@@ -54,7 +54,6 @@
             </padding>
         </VBox>
 
-        <!-- Contenido principal -->
         <Text fill="WHITE" layoutX="270.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestión de Postulaciones" textAlignment="CENTER" wrappingWidth="715.0">
             <font>
                 <Font name="System Bold" size="25.0" />

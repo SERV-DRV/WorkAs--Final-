@@ -96,11 +96,7 @@ public class InicioSesionController implements Initializable {
                 Parent root = loader.load();
                 
                 if ("CLIENTE".equals(rol)) {
-                    // MainMenuClienteController controlador = loader.getController();
-                    // controlador.setDatosCliente(nombre, correo); 
                 } else if ("FREELANCER".equals(rol)) {
-                    // MainMenuFreelancerController controlador = loader.getController();
-                    // controlador.setDatosFreelancer(nombre, correo); 
                 }
 
                 Stage stage = (Stage) txtEmail.getScene().getWindow();

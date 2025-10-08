@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.workas.controller.CategoriasFreeLanceController;
 import org.workas.controller.ClientesFreeLanceController;
+import org.workas.controller.EntregasFreeLanceController;
 import org.workas.controller.FacturasClienteController;
 import org.workas.controller.InicioSesionController;
 import org.workas.controller.MainMenuClienteController;
@@ -204,6 +205,15 @@ public class Main extends Application {
         try {
             CategoriasFreeLanceController cfl = (CategoriasFreeLanceController) cambiarEscena("CategoriaFreeLancer.fxml", 1000, 650);
             cfl.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void entregasLancers() {
+        try {
+            EntregasFreeLanceController efl = (EntregasFreeLanceController) cambiarEscena("EntregasFreeLance.fxml", 1000, 650);
+            efl.setPrincipal(this);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }

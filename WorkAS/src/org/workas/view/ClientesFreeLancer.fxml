@@ -37,7 +37,6 @@
             </font>
         </Text>
 
-        <!-- SECCIÓN DE BOTONES CORREGIDA -->
         <HBox alignment="CENTER_LEFT" layoutX="270.0" layoutY="120.0" prefWidth="715.0" spacing="15.0">
             <children>
                 <Button fx:id="btnAgregar" onAction="#manejarBotonAgregarGuardar" mnemonicParsing="false" style="-fx-background-color: green; -fx-text-fill: white;" styleClass="btn-crud" text="➕ Agregar" />

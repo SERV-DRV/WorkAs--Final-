@@ -330,11 +330,9 @@ public class FreelancersFreeLanceController implements Initializable {
 
     @FXML
     private void clicManejoEvento2(ActionEvent event) {
-        // Lógica futura para otros botones del menú
     }
     
     @FXML
     private void clicManejoEvento(ActionEvent event) {
-        // Lógica futura para cerrar sesión
     }
 }

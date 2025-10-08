@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.workas.model;
 
-/**
- *
- * @author PC
- */
 public class Categoria {
     private int idCategoria;
     private String nombre;
@@ -47,7 +39,6 @@ public class Categoria {
         this.descripcion = descripcion;
     }
 
-    // CRÍTICO para mostrar el nombre en ComboBox
     @Override
     public String toString() {
         return nombre;
