@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -460,7 +461,38 @@ public class ProyectosFreeLanceController implements Initializable{
     }
     
     @FXML
-    public void escenaMenuPrincipal() {
-        principal.mainMenuCliente();
+    public void clicManejoEvento(ActionEvent evento) {
+        if (principal == null) {
+            principal = Main.getInstancia();
+        }
+    }
+
+    @FXML private Button btnInicioF, btnCerrarSesionS,btnClientes,btnFreeLancers,btnCategorias,btnEntregas,btnProyectos;
+    @FXML 
+    public void clicManejoEvento2(ActionEvent evento) {
+        if (principal == null) {
+            principal = Main.getInstancia();
+        }
+        if (evento.getSource() == btnClientes) {
+            principal.clientesLancers();
+        }
+        if (evento.getSource() == btnFreeLancers) {
+            principal.freeLancersLancers();
+        }
+        if (evento.getSource() == btnCategorias) {
+            principal.categoriasLancers();
+        }
+        if (evento.getSource() == btnEntregas) {
+            principal.entregasLancers();
+        }
+        if (evento.getSource() == btnProyectos) {
+            principal.proyectosFreelancer();
+        }
+        if (evento.getSource() == btnInicioF) {
+            principal.mainMenuFreelancer();
+        }
+        if (evento.getSource() == btnCerrarSesionS) {
+            principal.inicio();
+        }
     }
 }

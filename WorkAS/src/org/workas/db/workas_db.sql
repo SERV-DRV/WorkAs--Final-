@@ -46,9 +46,9 @@ create table Proyectos (
     estado enum('publicado', 'en curso', 'finalizado', 'cancelado') default 'publicado',
     fecha_creacion datetime default current_timestamp,
     fecha_entrega date,
-    foreign key (id_categoria) references categorias(id_categoria),
-    foreign key (id_cliente) references clientes(id_cliente),
-    foreign key (id_freelancer) references freelancers(id_freelancer)
+    foreign key (id_categoria) references categorias(id_categoria) on delete cascade,
+    foreign key (id_cliente) references clientes(id_cliente) on delete cascade,
+    foreign key (id_freelancer) references freelancers(id_freelancer) on delete cascade
 );
  
 -- Tabla de postulaciones
@@ -60,8 +60,8 @@ create table Postulaciones (
     monto_ofrecido decimal(10,2), -- cuánto desea cobrar el freelancer
     estado enum('pendiente', 'aceptado', 'rechazado') default 'pendiente',
     fecha_postulacion datetime default current_timestamp,
-    foreign key (id_proyecto) references proyectos(id_proyecto),
-    foreign key (id_freelancer) references freelancers(id_freelancer)
+    foreign key (id_proyecto) references proyectos(id_proyecto) on delete cascade,
+    foreign key (id_freelancer) references freelancers(id_freelancer) on delete cascade
 );
  
 -- Pagos realizados a freelancers
@@ -73,8 +73,8 @@ create table Pagos (
     fecha_pago datetime default current_timestamp,
     metodo_pago varchar(50),
     estado enum('pendiente', 'completado', 'fallido') default 'pendiente',
-    foreign key (id_proyecto) references proyectos(id_proyecto),
-    foreign key (id_freelancer) references freelancers(id_freelancer)
+    foreign key (id_proyecto) references proyectos(id_proyecto) on delete cascade, 
+    foreign key (id_freelancer) references freelancers(id_freelancer)on delete cascade
 );
  
 -- Facturas emitidas a clientes
@@ -84,7 +84,7 @@ create table Facturas (
     fecha datetime default current_timestamp,
     total decimal(10,2),
     estado enum('pendiente', 'pagado', 'cancelado') default 'pendiente',
-    foreign key (id_cliente) references clientes(id_cliente)
+    foreign key (id_cliente) references clientes(id_cliente)on delete cascade
 );
  
 -- Detalles de cada factura
@@ -95,7 +95,7 @@ create table Detalle_factura (
     cantidad int,
     precio_unitario decimal(10,2),
     subtotal decimal(10,2),
-    foreign key (id_factura) references facturas(id_factura)
+    foreign key (id_factura) references facturas(id_factura)on delete cascade
 );
  
 -- Tabla de entregas
@@ -107,8 +107,8 @@ create table entregas (
     descripcion text,
     fecha_entrega datetime default current_timestamp,
  
-    foreign key (id_proyecto) references proyectos(id_proyecto),
-    foreign key (id_freelancer) references freelancers(id_freelancer)
+    foreign key (id_proyecto) references proyectos(id_proyecto)on delete cascade,
+    foreign key (id_freelancer) references freelancers(id_freelancer)on delete cascade
 );
 
 -- =============================

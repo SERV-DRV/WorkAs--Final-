@@ -61,16 +61,16 @@
                 <Label fx:id="lblCorreoUsuario" style="-fx-text-fill: #cfcfcf; -fx-font-size: 12px;" text="correo@freelancer.com" />
                 <Separator prefHeight="0.0" prefWidth="229.0" />
                 
-                <Button fx:id="btnInicioF" styleClass="btn-rojo" text="Inicio" />
+                <Button fx:id="btnInicioF" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Inicio" />
             <Button fx:id="btnClientes" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Clientes" />
                 <Button fx:id="btnFreeLancers" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="FreeLancers" />
-                <Button fx:id="btnCategorias" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Categorias" />
+                <Button fx:id="btnCategorias" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Categorias De Proyectos" />
                 <Button fx:id="btnEntregas" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Entregas" />
                 <Button fx:id="btnProyectos" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Proyectos" />
                 
                 <Separator />
                 
-                <Button fx:id="btnCerrarSesionS" onAction="#clicManejoEvento" styleClass="btn-rojo" text="Cerrar Sesión" />
+                <Button fx:id="btnCerrarSesion" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Cerrar Sesión" />
             </children>
             <padding>
                 <Insets bottom="10.0" top="10.0" />

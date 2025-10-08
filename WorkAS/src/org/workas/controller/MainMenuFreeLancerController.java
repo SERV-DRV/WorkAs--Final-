@@ -38,14 +38,10 @@ public class MainMenuFreeLancerController implements Initializable {
         }
     }
 
-
     @FXML
     public void clicManejoEvento(ActionEvent evento) {
         if (principal == null) {
             principal = Main.getInstancia();
-        }
-        if (evento.getSource() == btnCerrarSesion) {
-            principal.inicio();
         }
     }
 
@@ -69,6 +65,12 @@ public class MainMenuFreeLancerController implements Initializable {
         }
         if (evento.getSource() == btnProyectos) {
             principal.proyectosFreelancer();
+        }
+        if (evento.getSource() == btnInicioF) {
+            principal.mainMenuFreelancer();
+        }
+        if (evento.getSource() == btnCerrarSesion) {
+            principal.inicio();
         }
     }
 } 

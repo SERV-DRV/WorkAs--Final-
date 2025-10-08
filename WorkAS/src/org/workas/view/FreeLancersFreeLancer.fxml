@@ -39,9 +39,9 @@
 
         <HBox alignment="CENTER_LEFT" layoutX="270.0" layoutY="120.0" prefWidth="715.0" spacing="15.0">
             <children>
-                <Button fx:id="btnAgregar" onAction="#manejarBotonAgregarGuardar" mnemonicParsing="false" style="-fx-background-color: green; -fx-text-fill: white;" styleClass="btn-crud" text="➕ Agregar" />
-                <Button fx:id="btnEliminar" onAction="#manejarBotonEliminarCancelar" mnemonicParsing="false" style="-fx-background-color: red; -fx-text-fill: white;" styleClass="btn-crud" text="🗑 Eliminar" />
-                <Button fx:id="btnActualizar" onAction="#manejarBotonActualizar" mnemonicParsing="false" style="-fx-background-color: blue; -fx-text-fill: white;" styleClass="btn-crud" text="✎ Editar" />
+                <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#manejarBotonAgregarGuardar" style="-fx-background-color: green; -fx-text-fill: white;" styleClass="btn-crud" text="➕ Agregar" />
+                <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#manejarBotonEliminarCancelar" style="-fx-background-color: red; -fx-text-fill: white;" styleClass="btn-crud" text="🗑 Eliminar" />
+                <Button fx:id="btnActualizar" mnemonicParsing="false" onAction="#manejarBotonActualizar" style="-fx-background-color: blue; -fx-text-fill: white;" styleClass="btn-crud" text="✎ Editar" />
                 <TextField fx:id="txtBuscar" onKeyReleased="#buscarFreelancer" promptText="Buscar por nombre, email o especialidad..." style="-fx-background-color: gray; -fx-text-fill: white;" HBox.hgrow="ALWAYS" />
             </children>
         </HBox>
@@ -96,13 +96,14 @@
                 <Label fx:id="lblNombreUsuario" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" text="Nombre del Usuario" />
                 <Label fx:id="lblCorreoUsuario" style="-fx-text-fill: #cfcfcf; -fx-font-size: 12px;" text="correo@usuario.com" />
                 <Separator prefHeight="0.0" prefWidth="229.0" />
-                <Button styleClass="btn-rojo" text="Clientes" />
-                <Button fx:id="btnMisProyectos" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="FreeLancers" />
-                <Button styleClass="btn-rojo" text="Categorias De Proyectos" />
-                <Button styleClass="btn-rojo" text="Entregas" />
-                <Button styleClass="btn-rojo" text="Proyectos" />
+            <Button fx:id="btnInicioF" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Inicio" />
+            <Button fx:id="btnClientes" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Clientes" />
+            <Button fx:id="btnFreeLancers" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="FreeLancers" />
+            <Button fx:id="btnCategorias" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Categorias De Proyectos" />
+            <Button fx:id="btnEntregas" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Entregas" />
+            <Button fx:id="btnProyectos" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Proyectos" />
                 <Separator />
-                <Button fx:id="btnCerrarSesion1" onAction="#clicManejoEvento" styleClass="btn-rojo" text="Cerrar Sesión" />
+            <Button fx:id="btnCerrarSesionS" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Cerrar Sesión" />
             </children>
             <padding>
                 <Insets bottom="10.0" top="10.0" />

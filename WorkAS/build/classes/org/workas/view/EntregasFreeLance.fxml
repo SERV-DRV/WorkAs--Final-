@@ -21,7 +21,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #1e1e1e;" stylesheets="@../style/mainmenucliente.css" xmlns="http.com/javafx/23.0.1" xmlns:fx="http.com/fxml/1" fx:controller="org.workas.controller.EntregasFreeLanceController">
+<AnchorPane prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #1e1e1e;" stylesheets="@../style/mainmenucliente.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.workas.controller.EntregasFreeLanceController">
     <children>
         <Circle fill="#c62828" layoutX="134.0" layoutY="56.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
         <Label layoutX="258.0" layoutY="-2.0" prefHeight="67.0" prefWidth="741.0" styleClass="label-main" text="Bienvenido a WorkAS - Panel del Freelancer" />
@@ -42,13 +42,14 @@
                 <Label style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" text="Nombre del Freelancer" />
                 <Label style="-fx-text-fill: #cfcfcf; -fx-font-size: 12px;" text="correo@freelancer.com" />
                 <Separator prefWidth="229.0" />
-                <Button styleClass="btn-rojo" text="Clientes" />
-                <Button styleClass="btn-rojo" text="Freelancers" />
-                <Button styleClass="btn-rojo" text="Categorías" />
-                <Button styleClass="btn-rojo" text="Entregas" />
-                <Button styleClass="btn-rojo" text="Proyectos" />
+            <Button fx:id="btnInicioF" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Inicio" />
+            <Button fx:id="btnClientes" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Clientes" />
+            <Button fx:id="btnFreeLancers" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="FreeLancers" />
+            <Button fx:id="btnCategorias" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Categorias De Proyectos" />
+            <Button fx:id="btnEntregas" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Entregas" />
+            <Button fx:id="btnProyectos" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Proyectos" />
                 <Separator />
-                <Button styleClass="btn-rojo" text="Cerrar Sesión" />
+            <Button fx:id="btnCerrarSesionS" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Cerrar Sesión" />
             </children>
             <padding>
                 <Insets bottom="10.0" top="10.0" />

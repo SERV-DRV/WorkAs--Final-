@@ -318,19 +318,37 @@ public class ClientesFreeLanceController implements Initializable {
     }
 
     @FXML
-    public void escenaMenuPrincipal() {
-        if (principal != null) {
-            principal.mainMenuCliente();
+    public void clicManejoEvento(ActionEvent evento) {
+        if (principal == null) {
+            principal = Main.getInstancia();
         }
     }
 
-    @FXML
-    private void clicManejoEvento2(ActionEvent event) {
-    }
-    
-    @FXML
-    private void clicManejoEvento(ActionEvent event) {
-        if (principal != null) {
+    @FXML private Button btnInicioF, btnCerrarSesionS,btnClientes,btnFreeLancers,btnCategorias,btnEntregas,btnProyectos;
+    @FXML 
+    public void clicManejoEvento2(ActionEvent evento) {
+        if (principal == null) {
+            principal = Main.getInstancia();
+        }
+        if (evento.getSource() == btnClientes) {
+            principal.clientesLancers();
+        }
+        if (evento.getSource() == btnFreeLancers) {
+            principal.freeLancersLancers();
+        }
+        if (evento.getSource() == btnCategorias) {
+            principal.categoriasLancers();
+        }
+        if (evento.getSource() == btnEntregas) {
+            principal.entregasLancers();
+        }
+        if (evento.getSource() == btnProyectos) {
+            principal.proyectosFreelancer();
+        }
+        if (evento.getSource() == btnInicioF) {
+            principal.mainMenuFreelancer();
+        }
+        if (evento.getSource() == btnCerrarSesionS) {
             principal.inicio();
         }
     }
