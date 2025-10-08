@@ -39,8 +39,8 @@
                         <Image url="@../image/UserCliente.png" />
                     </image>
                 </ImageView>
-                <Label style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" text="Nombre del Freelancer" />
-                <Label style="-fx-text-fill: #cfcfcf; -fx-font-size: 12px;" text="correo@freelancer.com" />
+                <Label style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" text="Freelancer WorkAs" />
+                <Label style="-fx-text-fill: #cfcfcf; -fx-font-size: 12px;" text="Bienvenido Freelancer" />
                 <Separator prefWidth="229.0" />
             <Button fx:id="btnInicioF" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Inicio" />
             <Button fx:id="btnClientes" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Clientes" />
