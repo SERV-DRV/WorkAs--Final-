@@ -1,6 +1,7 @@
 package org.workas.system;
 
 import java.io.InputStream;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -14,42 +15,53 @@ import javafx.stage.Stage;
 import org.workas.controller.FacturasClienteController;
 import org.workas.controller.InicioSesionController;
 import org.workas.controller.MainMenuClienteController;
+import org.workas.controller.MainMenuFreeLancerController;
 import org.workas.controller.PagosClientesController;
 import org.workas.controller.PostuladosClienteController;
 import org.workas.controller.ProyectosClienteController;
+import org.workas.controller.ProyectosFreeLanceController;
 import org.workas.controller.RegistroClienteController;
 import org.workas.controller.RegistroFreelancersController;
 
 public class Main extends Application {
 
     private static Main instancia;
-    
+
     private static final String URL_VIEW = "/org/workas/view/";
     private static final String URL = "/org/workas/";
-    
+
     private Stage escenarioPrincipal;
     private Scene escena;
 
     public static void main(String[] args) {
         launch(args);
     }
-    
-    private static int idClienteActual;
 
-    public static void setIdClienteActual(int idCliente) {
-        idClienteActual = idCliente;
+    private int idUsuarioActual;
+    private String rolUsuarioActual; 
+
+    public void setIdUsuarioActual(int idUsuarioActual) {
+        this.idUsuarioActual = idUsuarioActual;
     }
 
-    public static int getIdClienteActual() {
-        return idClienteActual;
+    public int getIdUsuarioActual() {
+        return idUsuarioActual;
     }
-    
+
+    public void setRolUsuarioActual(String rolUsuarioActual) {
+        this.rolUsuarioActual = rolUsuarioActual;
+    }
+
+    public String getRolUsuarioActual() {
+        return rolUsuarioActual;
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         instancia = this;
         this.escenarioPrincipal = stage;
 
-        inicio(); 
+        inicio();
 
         escenarioPrincipal.setScene(escena);
         escenarioPrincipal.getIcons().add(new Image(URL + "image/LogoPuro.png"));
@@ -103,9 +115,9 @@ public class Main extends Application {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void mainMenuCliente() {
-        try{
+        try {
             MainMenuClienteController mmc = (MainMenuClienteController) cambiarEscena("MainMenuCliente.fxml", 1000, 650);
             mmc.setPrincipal(this);
         } catch (Exception ex) {
@@ -113,8 +125,19 @@ public class Main extends Application {
         }
     }
     
+    public void mainMenuFreelancer() {
+        try {
+            MainMenuFreeLancerController mmfl = (MainMenuFreeLancerController) cambiarEscena("MainMenuFreeLancer.fxml", 1000, 650);
+            mmfl.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+
     public void proyectosCliente() {
-        try{
+        try {
             ProyectosClienteController pcc = (ProyectosClienteController) cambiarEscena("ProyectosCliente.fxml", 1000, 650);
             pcc.setPrincipal(this);
         } catch (Exception ex) {
@@ -122,26 +145,35 @@ public class Main extends Application {
         }
     }
     
+    public void proyectosFreelancer() {
+        try {
+            ProyectosFreeLanceController pflc = (ProyectosFreeLanceController) cambiarEscena("ProyectosFreeLance.fxml", 1000, 650);
+            pflc.setPrincipal(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void postuladosCliente() {
-        try{
+        try {
             PostuladosClienteController plcc = (PostuladosClienteController) cambiarEscena("PostuladosCliente.fxml", 1000, 650);
             plcc.setPrincipal(this);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void pagosCliente() {
-        try{
+        try {
             PagosClientesController pgcc = (PagosClientesController) cambiarEscena("PagosClientes.fxml", 1000, 650);
             pgcc.setPrincipal(this);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void facturasCliente() {
-        try{
+        try {
             FacturasClienteController fcc = (FacturasClienteController) cambiarEscena("FacturasClientes.fxml", 1000, 650);
             fcc.setPrincipal(this);
         } catch (Exception ex) {

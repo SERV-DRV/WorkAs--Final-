@@ -528,13 +528,36 @@ begin
 end //
 delimiter ;
 
-delimiter //
-create procedure sp_verificarEmail(
-    in p_email varchar(100),
-    in p_contraseña varchar(100)
-)
+delimiter $$
+	create procedure sp_iniciarsesionunificado(
+		in p_email varchar(100),
+		in p_contraseña varchar(100)
+	)
 	begin
-		select * from Clientes 
+		declare is_client_found boolean default false;
+		
+		select count(*) into is_client_found
+		from clientes
 		where email = p_email and contraseña = p_contraseña;
-	end//
+
+		if is_client_found then
+			select
+				id_cliente as id_usuario,
+				nombre,
+				email,
+				'CLIENTE' as rol
+			from clientes
+			where email = p_email and contraseña = p_contraseña
+			limit 1;
+		else
+			select
+				id_freelancer as id_usuario,
+				nombre,
+				email,
+				'FREELANCER' as rol
+			from freelancers
+			where email = p_email and contraseña = p_contraseña
+			limit 1;
+		end if;
+	end$$
 delimiter ;

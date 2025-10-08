@@ -60,28 +60,51 @@ public class InicioSesionController implements Initializable {
 
         try {
             PreparedStatement enunciado = Conexion.getInstancia().getConexion()
-                    .prepareCall("call sp_verificarEmail(?, ?);");
+                    .prepareCall("call sp_iniciarSesionUnificado(?, ?);");
             enunciado.setString(1, email);
             enunciado.setString(2, contraseña);
 
             ResultSet resultado = enunciado.executeQuery();
 
             if (resultado.next()) {
-                int idCliente = resultado.getInt("id_cliente");
+                
+                int idUsuario = resultado.getInt("id_usuario");
                 String nombre = resultado.getString("nombre");
                 String correo = resultado.getString("email");
+                String rol = resultado.getString("rol");
 
-                principal.setIdClienteActual(idCliente);
+                principal.setIdUsuarioActual(idUsuario);
+                principal.setRolUsuarioActual(rol);
 
-                mostrarAlerta("Inicio de sesión exitoso", Alert.AlertType.INFORMATION);
+                mostrarAlerta("Inicio de sesión exitoso como " + rol, Alert.AlertType.INFORMATION);
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/workas/view/MainMenuCliente.fxml"));
+                String fxmlPath;
+                String titulo = "";
+
+                if ("CLIENTE".equals(rol)) {
+                    fxmlPath = "/org/workas/view/MainMenuCliente.fxml";
+                    titulo = "Menú Cliente";
+                } else if ("FREELANCER".equals(rol)) {
+                    fxmlPath = "/org/workas/view/MainMenuFreelancer.fxml";
+                    titulo = "Menú Freelancer";
+                } else {
+                    mostrarAlerta("Rol de usuario desconocido.", Alert.AlertType.ERROR);
+                    return;
+                }
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
                 Parent root = loader.load();
-
-                MainMenuClienteController controlador = loader.getController();
-                controlador.setDatosCliente(nombre, correo);
+                
+                if ("CLIENTE".equals(rol)) {
+                    // MainMenuClienteController controlador = loader.getController();
+                    // controlador.setDatosCliente(nombre, correo); 
+                } else if ("FREELANCER".equals(rol)) {
+                    // MainMenuFreelancerController controlador = loader.getController();
+                    // controlador.setDatosFreelancer(nombre, correo); 
+                }
 
                 Stage stage = (Stage) txtEmail.getScene().getWindow();
+                stage.setTitle(titulo);
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
@@ -92,7 +115,7 @@ public class InicioSesionController implements Initializable {
 
         } catch (Exception e) {
             e.printStackTrace();
-            mostrarAlerta("Error al iniciar sesión", Alert.AlertType.ERROR);
+            mostrarAlerta("Error al iniciar sesión: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
