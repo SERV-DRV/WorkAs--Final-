@@ -38,8 +38,8 @@
                         <Image url="@../image/UserCliente.png" />
                     </image>
                 </ImageView>
-                <Label style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" text="Nombre del Cliente" />
-                <Label style="-fx-text-fill: #cfcfcf; -fx-font-size: 12px;" text="correo@cliente.com" />
+                <Label style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" text="Cliente WorkAs" />
+                <Label style="-fx-text-fill: #cfcfcf; -fx-font-size: 12px;" text="Bienvenido Cliente" />
                 <Separator prefWidth="229.0" />
                 <Button onAction="#escenaMenuPrincipal" styleClass="btn-rojo" text="Inicio" />
                 <Button fx:id="btnProyectos" onAction="#clicManejoEvento2" styleClass="btn-rojo" text="Mis Proyectos" />
